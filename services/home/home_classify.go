@@ -12,7 +12,8 @@ func (classify *HomeClassify) GetClassify() serializer.Response {
 
 	var classifys []*models.Classify
 
-	models.PG.Limit(8).Find(&classifys)
+
+	models.PG.Preload("SubTopics").Limit(8).Find(&classifys)
 
 
 	return serializer.Response{

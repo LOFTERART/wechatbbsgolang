@@ -9,6 +9,7 @@ type Classify struct {
 	Type string `json:"type"`
 	Des string `json:"des"`
 	DesPic string `json:"desPic"`
+	SubTops []*SubTopic `json:"sub_tops"`
 }
 
 //单行序列化
@@ -21,6 +22,7 @@ func BuildClassify(item *models.Classify) *Classify {
 		Type:item.Type,
 		Des:item.Des,
 		DesPic:item.DesPic,
+		SubTops:BuildSubTopics(item.SubTopics),
 	}
 }
 

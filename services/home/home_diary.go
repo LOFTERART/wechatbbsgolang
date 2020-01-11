@@ -7,15 +7,16 @@ import (
 )
 
 type ListDiaryService struct {
-	Page int `form:"page" json:"page" `
-	Size int `form:"size" json:"size" `
+	Page        int `form:"page" json:"page" `
+	Size        int `form:"size" json:"size" `
 	CommunityId int `form:"communityId" json:"communityId" `
-	ClassifyId int  `form:"classifyId" json:"classifyId"`
+	ClassifyId  int `form:"classifyId" json:"classifyId"`
+	SubTopicId  int `form:"sub_topic_id" json:"sub_topic_id"`
 }
 
 func (service *ListDiaryService) GetDiarys() serializer.Response {
 
-	fmt.Println(service,"service----------")
+	fmt.Println(service, "service----------")
 
 	var diarys []*models.Diary
 
@@ -30,10 +31,9 @@ func (service *ListDiaryService) GetDiarys() serializer.Response {
 
 	start := (service.Page - 1) * service.Size
 
-
 	//根据前端是否传递ClassifyId 返回对应的数据
-	if service.ClassifyId>0{
-		if err := models.PG.Where("classify_id=? AND community_id=?",service.ClassifyId,service.CommunityId).Model(models.Diary{}).Count(&total).Error; err != nil {
+	if service.ClassifyId > 0 {
+		if err := models.PG.Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).Model(models.Diary{}).Count(&total).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",
@@ -41,7 +41,7 @@ func (service *ListDiaryService) GetDiarys() serializer.Response {
 			}
 		}
 
-		if err := models.PG.Where("classify_id=? AND community_id=?",service.ClassifyId,service.CommunityId).Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+		if err := models.PG.Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",
@@ -49,8 +49,8 @@ func (service *ListDiaryService) GetDiarys() serializer.Response {
 			}
 		}
 
-	}else {
-		if err := models.PG.Where("community_id=?",service.CommunityId).Model(models.Diary{}).Count(&total).Error; err != nil {
+	} else if service.SubTopicId > 0 {
+		if err := models.PG.Where(" community_id=? AND sub_topic_id=?", service.CommunityId, service.SubTopicId).Model(models.Diary{}).Count(&total).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",
@@ -58,7 +58,24 @@ func (service *ListDiaryService) GetDiarys() serializer.Response {
 			}
 		}
 
-		if err := models.PG.Where("community_id=?",service.CommunityId).Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+		if err := models.PG.Where(" community_id=? AND sub_topic_id=?", service.CommunityId, service.SubTopicId).Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+			return serializer.Response{
+				Code:  50000,
+				Msg:   "数据库连接错误",
+				Error: err.Error(),
+			}
+		}
+
+	} else {
+		if err := models.PG.Where("community_id=?", service.CommunityId).Model(models.Diary{}).Count(&total).Error; err != nil {
+			return serializer.Response{
+				Code:  50000,
+				Msg:   "数据库连接错误",
+				Error: err.Error(),
+			}
+		}
+
+		if err := models.PG.Where("community_id=?", service.CommunityId).Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",
@@ -67,12 +84,6 @@ func (service *ListDiaryService) GetDiarys() serializer.Response {
 		}
 	}
 
-
-
-
 	return serializer.BuildListResponse(serializer.BuildDiarys(diarys), uint(total))
 
-
 }
-
-

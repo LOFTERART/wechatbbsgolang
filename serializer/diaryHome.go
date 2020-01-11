@@ -23,6 +23,8 @@ type Diary struct {
 	Specialist bool `json:"specialist"`
 	Avatar string `json:"avatar"`
 	CreatedAt   string `json:"timer"`
+	SubTopicId  uint `json:"tagId"`
+	CommunityId uint `json:"communityId"`
 }
 
 func BuildDiary(item models.Diary) Diary {
@@ -44,6 +46,8 @@ func BuildDiary(item models.Diary) Diary {
 		Specialist:item.Specialist,
 		Avatar:item.Avatar,
 		CreatedAt:item.FormatCretaeTime(),
+		SubTopicId:item.SubTopicId,
+		CommunityId :item.CommunityId,
 	}
 
 }

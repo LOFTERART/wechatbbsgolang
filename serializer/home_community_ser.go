@@ -14,7 +14,7 @@ type Community struct {
 	Id      uint   `json:"id"`
 	Name    string `json:"cityName"`
 	KeyWord string `json:"keyword"`
-	Letter  string `json:"-"`
+	Letter  string `json:"letter"`
 }
 
 //返回结果序列化2
@@ -79,42 +79,69 @@ func BuildCommunitys(item []models.Communitys) (list Lists) {
 	sort.Sort(Animals(item))
 
 	//格式化后数据
-	var cityList []Community
+	//var cityList []Community
+	//for _, v := range item {
+	//	cityList = append(cityList, BuildCommunity(v))
+	//}
 
-	for _, v := range item {
-		cityList = append(cityList, BuildCommunity(v))
-	}
+	//二维数组
+	var arrays []ResComs
+	//一维数组
+	var temp ResComs
 
-	//待封装数据
-	res := ResComs{}
+	item = append(item, models.Communitys{})
 
-	for i := 0; i < len(cityList); i++ {
-		//取出第一个数组
-		item := cityList[i]
+	for i := 0; i < len(item)-1; i++ {
 
-		var tempList []Community
-		tempList = append(tempList, item)
+		if item[i].Letter == item[i+1].Letter {
+			temp.Letter = item[i].Letter
+			temp.Data = append(temp.Data, BuildCommunity(item[i]))
+		} else {
+			temp.Letter = item[i].Letter
+			temp.Data = append(temp.Data, BuildCommunity(item[i]))
+			arrays = append(arrays, temp)
+			//	置空temp
+			temp.Letter = ""
+			temp.Data = make([]Community, 0)
 
-		//循环比较余下的数据
-		for j := i + 1; j < len(cityList); j++ {
-			temp := cityList[j]
-			//如果相等就扔进tempList []
-			if temp.Letter == item.Letter {
-				tempList = append(tempList, temp)
-				//根据下标删除已经加入的元素
-				cityList = append(cityList[:j], cityList[j+1:]...)
-				//移后一位避免跳过当前位置
-				j = j - 1
-			}
 		}
 
-		//外层循环赋值 一个letter 和多个[]Community
-		res.Letter = item.Letter
-		res.Data = tempList
-		//每次循环加入待返回数组
-		list.List = append(list.List, res)
-
 	}
+
+	list.List = arrays
+
+	temp.Data=nil
+
+	//待封装数据
+	//res := ResComs{}
+	//
+	//for i := 0; i < len(cityList); i++ {
+	//	//取出第一个数组
+	//	item := cityList[i]
+	//
+	//	var tempList []Community
+	//	tempList = append(tempList, item)
+	//
+	//	//循环比较余下的数据
+	//	for j := i + 1; j < len(cityList); j++ {
+	//		temp := cityList[j]
+	//		//如果相等就扔进tempList []
+	//		if temp.Letter == item.Letter {
+	//			tempList = append(tempList, temp)
+	//			//根据下标删除已经加入的元素
+	//			cityList = append(cityList[:j], cityList[j+1:]...)
+	//			//移后一位避免跳过当前位置
+	//			j = j - 1
+	//		}
+	//	}
+	//
+	//	//外层循环赋值 一个letter 和多个[]Community
+	//	res.Letter = item.Letter
+	//	res.Data = tempList
+	//	//每次循环加入待返回数组
+	//	list.List = append(list.List, res)
+	//
+	//}
 
 	return
 

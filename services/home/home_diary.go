@@ -3,6 +3,7 @@ package home
 import (
 	"QUZHIYOU/models"
 	"QUZHIYOU/serializer"
+	"fmt"
 )
 
 type ListDiaryService struct {
@@ -13,6 +14,8 @@ type ListDiaryService struct {
 }
 
 func (service *ListDiaryService) GetDiarys() serializer.Response {
+
+	fmt.Println(service,"service----------")
 
 	var diarys []*models.Diary
 
@@ -30,7 +33,7 @@ func (service *ListDiaryService) GetDiarys() serializer.Response {
 
 	//根据前端是否传递ClassifyId 返回对应的数据
 	if service.ClassifyId>0{
-		if err := models.PG.Where("classify_id=?",service.ClassifyId).Model(models.Diary{}).Count(&total).Error; err != nil {
+		if err := models.PG.Where("classify_id=? AND community_id=?",service.ClassifyId,service.CommunityId).Model(models.Diary{}).Count(&total).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",
@@ -38,7 +41,7 @@ func (service *ListDiaryService) GetDiarys() serializer.Response {
 			}
 		}
 
-		if err := models.PG.Where("classify_id=?",service.ClassifyId).Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+		if err := models.PG.Where("classify_id=? AND community_id=?",service.ClassifyId,service.CommunityId).Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",

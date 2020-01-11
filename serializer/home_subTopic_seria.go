@@ -1,14 +1,18 @@
 package serializer
 
-import "QUZHIYOU/models"
+import (
+	"QUZHIYOU/models"
+	"strconv"
+)
 
 type SubTopic struct {
 	Id         uint   `json:"id"`
 	Name       string `json:"name"`
 	SubName    string `json:"sub_name"`
-	SendNum    uint   `json:"send_num"` //发送帖子数
-	Follow     uint   `json:"follow"`   //关注人数
-	ClassifyId uint   `json:"classify_id"`
+	SendNum    int   `json:"send_num"` //发送帖子数
+	Follow     int   `json:"follow"`   //关注人数
+	ClassifyId int   `json:"classify_id"`
+	BackSubName string `json:"subName"`
 }
 
 // Build  序列化
@@ -20,6 +24,7 @@ func BuildSubTopic(item *models.SubTopic) *SubTopic {
 		SendNum:    item.SendNum,
 		Follow:     item.Follow,
 		ClassifyId: item.ClassifyId,
+		BackSubName:strconv.Itoa(item.SendNum)+"条日记"+strconv.Itoa(item.Follow)+"人关注",
 	}
 }
 

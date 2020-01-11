@@ -34,6 +34,7 @@ func InitRouter() *gin.Engine {
 		home.POST("/adddiary", api.PostAddDiary)
 		home.POST("/upload", api.PostDiaryPic)
 		home.GET("/getcommunity", api.Getcommunity)
+		home.GET("/getsubtopic", api.Getsubtopic)
 	}
 
 	return router

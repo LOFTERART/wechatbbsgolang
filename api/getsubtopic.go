@@ -8,7 +8,15 @@ import (
 func Getsubtopic(c *gin.Context)  {
 
 	var subtopic home.SubTopicService
-	res:=subtopic.GetSubTopic()
-	c.IndentedJSON(200,&res)
+	if err:=c.ShouldBind(&subtopic);err==nil{
+		res:=subtopic.GetSubTopic()
+		c.IndentedJSON(200,&res)
+	}else {
+		c.JSON(200, ErrorResponse(err))
+	}
+
+
+
+
 
 }

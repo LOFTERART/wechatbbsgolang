@@ -6,10 +6,10 @@ import (
 	"os"
 	"path/filepath"
 )
-
+//返回字段
 type Back struct {
 	Url           string `json:"url"`
-	PostIndexSort int `json:"post_indexSort"`
+	PostIndexSort int    `json:"post_indexSort"`
 }
 
 func PostDiaryPic(c *gin.Context) {
@@ -22,10 +22,17 @@ func PostDiaryPic(c *gin.Context) {
 	for index, file := range files {
 
 		back.Url = file.Filename
-		back.PostIndexSort=index
+		back.PostIndexSort = index
 		log.Println(file.Filename)
 		// 上传文件至指定目录
-		c.SaveUploadedFile(file, dir+"/static/"+file.Filename)
+		if err:=c.SaveUploadedFile(file, dir+"/static/"+file.Filename);err!=nil{
+			c.IndentedJSON(200, gin.H{
+				"code": 404,
+				"data": nil,
+				"msg":  "上传失败",
+			})
+			return
+		}
 
 		c.IndentedJSON(200, gin.H{
 			"code": 0,

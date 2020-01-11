@@ -17,6 +17,7 @@ type AddDiaryService struct {
 	PhotosThumb []string `form:"photosthumb" json:"photosthumb"`
 	CommunityId uint `form:"communityId" json:"communityId" `  //社区id
 	ClassifyId uint `form:"classifyId" json:"classifyId" `    //标签ID
+	SubTopicId uint `form:"sub_topic_id" json:"sub_topic_id"`    //标签ID
 }
 
 func (diary *AddDiaryService) AddDiary() serializer.Response {
@@ -31,6 +32,8 @@ func (diary *AddDiaryService) AddDiary() serializer.Response {
 		PhotosThumb:diary.Photos,
 		Tag:diary.Tag,
 		CommunityId:diary.CommunityId,
+		SubTopicId:diary.SubTopicId,
+		ClassifyId:diary.ClassifyId,
 	}
 
 	//创建话题

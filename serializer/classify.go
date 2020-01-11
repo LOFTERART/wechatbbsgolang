@@ -9,7 +9,7 @@ type Classify struct {
 	Type string `json:"type"`
 	Des string `json:"des"`
 	DesPic string `json:"desPic"`
-	SubTops []*SubTopic `json:"sub_tops"`
+	SubTops []*SubTopic `json:"subTops"`
 }
 
 //单行序列化

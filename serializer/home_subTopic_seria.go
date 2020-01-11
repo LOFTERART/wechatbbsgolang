@@ -11,7 +11,6 @@ type SubTopic struct {
 	ClassifyId uint   `json:"classify_id"`
 }
 
-
 // Build  序列化
 func BuildSubTopic(item *models.SubTopic) *SubTopic {
 	return &SubTopic{

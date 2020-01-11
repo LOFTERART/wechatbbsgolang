@@ -26,6 +26,8 @@ type Diary struct {
 	Status string
 	Specialist bool
 	CommunityId uint
+	SubTopicId uint //属于哪个标签
+	ClassifyId uint //属于哪个大标签
 }
 
 var timeLayoutStr = "2006/01/02 15:04"

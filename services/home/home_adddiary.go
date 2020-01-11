@@ -3,6 +3,7 @@ package home
 import (
 	"QUZHIYOU/models"
 	"QUZHIYOU/serializer"
+	"github.com/jinzhu/gorm"
 )
 
 type AddDiaryService struct {
@@ -14,7 +15,8 @@ type AddDiaryService struct {
 	Photos []string `form:"photos" json:"photos"`
 	Tag string `form:"tag" json:"tag"`
 	PhotosThumb []string `form:"photosthumb" json:"photosthumb"`
-	CommunityId uint `form:"communityId" json:"communityId" `
+	CommunityId uint `form:"communityId" json:"communityId" `  //社区id
+	ClassifyId uint `form:"classifyId" json:"classifyId" `    //标签ID
 }
 
 func (diary *AddDiaryService) AddDiary() serializer.Response {
@@ -31,12 +33,17 @@ func (diary *AddDiaryService) AddDiary() serializer.Response {
 		CommunityId:diary.CommunityId,
 	}
 
+	//创建话题
 	models.PG.Create(&dia)
+	//更新tag sendNum
+	 var subTopic models.SubTopic
+	subTopic.ID=diary.ClassifyId
+	models.PG.Model(&subTopic).UpdateColumn("send_num",gorm.Expr("send_num + ?", 1))
 
 	return serializer.Response{
 		Code:  0,
-		Data:  "创建成功",
-		Msg:   "",
+		Data:  nil,
+		Msg:   "创建成功",
 		Error: "",
 	}
 

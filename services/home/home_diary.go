@@ -3,7 +3,6 @@ package home
 import (
 	"QUZHIYOU/models"
 	"QUZHIYOU/serializer"
-	"fmt"
 )
 
 type ListDiaryService struct {
@@ -14,9 +13,7 @@ type ListDiaryService struct {
 	SubTopicId  int `form:"sub_topic_id" json:"sub_topic_id"`
 }
 
-func (service *ListDiaryService) GetDiarys() serializer.Response {
-
-	fmt.Println(service, "service----------")
+func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
 
 	var diarys []*models.Diary
 
@@ -84,6 +81,6 @@ func (service *ListDiaryService) GetDiarys() serializer.Response {
 		}
 	}
 
-	return serializer.BuildListResponse(serializer.BuildDiarys(diarys), uint(total))
+	return serializer.BuildListResponse(serializer.BuildDiarys(diarys,userId), uint(total))
 
 }

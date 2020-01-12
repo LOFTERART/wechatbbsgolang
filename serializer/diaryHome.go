@@ -27,13 +27,13 @@ type Diary struct {
 	CommunityId uint `json:"communityId"`
 }
 
-func BuildDiary(item models.Diary) Diary {
+func BuildDiary(item models.Diary,userId int64) Diary {
 	return Diary{
 		ID:          item.ID,
 		Name:        item.Name,
 		Content:     item.Content,
 		Like:        item.Like,
-		IsLike:      item.UserIsLike(int64(18)),
+		IsLike:      item.UserIsLike(userId),
 		View:        item.View,
 		Auth:        item.Auth,
 		CommentNum:  item.CommentNum,
@@ -52,10 +52,10 @@ func BuildDiary(item models.Diary) Diary {
 
 }
 
-func BuildDiarys(items []*models.Diary) (diarys []*Diary) {
+func BuildDiarys(items []*models.Diary,userId int64) (diarys []*Diary) {
 
 	for _, item := range items {
-		diary := BuildDiary(*item)
+		diary := BuildDiary(*item,userId)
 		diarys = append(diarys, &diary)
 	}
 

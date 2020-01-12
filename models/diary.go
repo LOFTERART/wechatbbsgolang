@@ -28,6 +28,7 @@ type Diary struct {
 	CommunityId uint
 	SubTopicId uint //属于哪个标签
 	ClassifyId uint //属于哪个大标签
+	UserLikeId   pq.Int64Array `gorm:"type:varchar(300)[]"`//点赞人id存为数组
 }
 
 var timeLayoutStr = "2006/01/02 15:04"

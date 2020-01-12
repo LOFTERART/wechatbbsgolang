@@ -13,5 +13,11 @@ type User struct {
 	AccessToken string
 	Auth        string //职业认证
 	Specialist  bool   //是否认证
+	NickName string
+	AvatarUrl string
+	Province string
+	City string
+	Country string
+	Gender int
 
 }

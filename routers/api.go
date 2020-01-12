@@ -12,7 +12,13 @@ func InitRouter() *gin.Engine {
 	router := gin.Default()
 	router.StaticFS("/static", http.Dir("./static"))
 
-	router.GET("/wxlogin", api.WxLogin)
+
+	login:=router.Group("/login")
+	{
+		login.GET("/getcode",api.WxLogin)  //获取openid
+		login.GET("/getwxuserinfo",api.WxLoginUserInfo)  //获取用户详情
+	}
+
 	v1 := router.Group("v1")
 	{
 		//首页活动列表

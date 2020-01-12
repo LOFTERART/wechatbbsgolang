@@ -7,7 +7,6 @@ import (
 )
 
 type WxUserInfo struct {
-
 	NickName  string `json:"nick_name"`
 	AvatarUrl string `json:"avatar_url"`
 	Province  string `json:"province"`
@@ -19,16 +18,14 @@ type WxUserInfo struct {
 func (service *WxUserInfo) GetUserInfo(userid uint) serializer.Response {
 
 	//查找id 对应的userinfo
-	user:=models.User{
-		Model:       gorm.Model{
-			ID:userid,
+	user := models.User{
+		Model: gorm.Model{
+			ID: userid,
 		},
 	}
 
-
-	models.PG.First(&user).Updates(map[string]interface{}{"nick_name": service.NickName, "avatar_url": service.AvatarUrl, "province": service.Province,"gender": service.Gender,"city": service.City,"country": service.Country,})
-
-
+	models.PG.First(&user).
+		Updates(map[string]interface{}{"nick_name": service.NickName, "avatar_url": service.AvatarUrl, "province": service.Province, "gender": service.Gender, "city": service.City, "country": service.Country})
 
 	return serializer.Response{
 		Code:  0,

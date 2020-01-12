@@ -6,19 +6,17 @@ import (
 	"strconv"
 )
 
-func WxLoginUserInfo(c *gin.Context)  {
+func WxLoginUserInfo(c *gin.Context) {
+	userid := c.Request.Header.Get("userId")
+	i, _ := strconv.Atoi(userid)
 
-	var userinfo wxLogin.WxUserInfo
+	var Userinfo wxLogin.WxUserInfo
 
-	userid:=c.Request.Header.Get("userId")
-
-	i,_:=strconv.Atoi(userid)
-
-	if err:=c.ShouldBind(&userinfo);err==nil{
-		res:=userinfo.GetUserInfo(uint(i))
-		c.JSON(200,&res)
-	}else {
-		c.JSON(200,ErrorResponse(err))
+	if err := c.ShouldBind(&Userinfo); err == nil {
+		res := Userinfo.GetUserInfo(uint(i))
+		c.JSON(200, &res)
+	} else {
+		c.JSON(200, ErrorResponse(err))
 	}
 
 }

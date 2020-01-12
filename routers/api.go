@@ -16,7 +16,7 @@ func InitRouter() *gin.Engine {
 	login:=router.Group("/login")
 	{
 		login.GET("/getcode",api.WxLogin)  //获取openid
-		login.GET("/getwxuserinfo",api.WxLoginUserInfo)  //获取用户详情
+		login.POST("/getwxuserinfo",api.WxLoginUserInfo)  //获取用户详情
 	}
 
 	v1 := router.Group("v1")

@@ -9,6 +9,7 @@ import (
 
 type DiaryLikeService struct {
 	DiaryId uint `json:"diary_id" form:"diary_id"`
+	Type    bool `json:"type" form:"type"`
 }
 
 func (service *DiaryLikeService) LikeDiary(userid pq.Int64Array) serializer.Response {
@@ -20,14 +21,27 @@ func (service *DiaryLikeService) LikeDiary(userid pq.Int64Array) serializer.Resp
 	}
 
 	models.PG.First(&diary)
-	for _, v := range diary.UserLikeId {
-		if userid[0] != v {
-			userid = append(userid, v)
+
+	if service.Type {
+		for k, v := range diary.UserLikeId {
+			if userid[0] == v {
+
+				diary.UserLikeId = append(diary.UserLikeId[:k], diary.UserLikeId[k+1:]...)
+
+			}
 		}
 
-	}
+		models.PG.Model(&diary).Updates(map[string]interface{}{"like": diary.Like + 1, "user_like_id": diary.UserLikeId})
 
-	models.PG.Model(&diary).Updates(map[string]interface{}{"like": diary.Like + 1, "user_like_id": &userid})
+	} else {
+		for _, v := range diary.UserLikeId {
+			if userid[0] != v {
+				userid = append(userid, v)
+			}
+
+		}
+		models.PG.Model(&diary).Updates(map[string]interface{}{"like": diary.Like + 1, "user_like_id": &userid})
+	}
 
 	return serializer.Response{
 		Code:  0,

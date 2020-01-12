@@ -53,7 +53,7 @@ func (Diary *Diary) FormatPhotos(photo []string) (photos []map[string]interface{
 
 }
 
-//判断用户是否点赞
+//判断用户是否点赞 根据用户id是否在这个日记中
 func (Diary *Diary) UserIsLike(id int64) bool {
 
 	var array []int64

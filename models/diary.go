@@ -14,7 +14,7 @@ type Diary struct {
 	Avatar      string
 	Name        string
 	Content     string
-	Like        int
+	Like        uint
 	IsLike      bool
 	View        int
 	Auth        string

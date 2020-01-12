@@ -9,7 +9,7 @@ type Diary struct {
 	ID          uint           `json:"id"`
 	Name        string         `json:"name"`
 	Content     string         `json:"content"`
-	Like        int            `json:"like"`
+	Like        uint            `json:"like"`
 	IsLike      bool           `json:"is_like"`
 	View        int            `json:"views"`
 	Auth        string         `json:"Auth"`

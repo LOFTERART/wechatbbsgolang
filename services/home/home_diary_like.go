@@ -23,6 +23,8 @@ func (service *DiaryLikeService) LikeDiary(userid pq.Int64Array) serializer.Resp
 
 	models.PG.Model(&diary).Update("user_like_id",&userid)
 
+	
+
 
 	return serializer.Response{
 		Code:  0,

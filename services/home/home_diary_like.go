@@ -13,18 +13,21 @@ type DiaryLikeService struct {
 
 func (service *DiaryLikeService) LikeDiary(userid pq.Int64Array) serializer.Response {
 
-
-
-	diary:=models.Diary{
-		Model:       gorm.Model{
-			ID:        service.DiaryId,
+	diary := models.Diary{
+		Model: gorm.Model{
+			ID: service.DiaryId,
 		},
 	}
 
-	models.PG.Model(&diary).Update("user_like_id",&userid)
+	models.PG.First(&diary)
+	for _, v := range diary.UserLikeId {
+		if userid[0] != v {
+			userid = append(userid, v)
+		}
 
-	
+	}
 
+	models.PG.Model(&diary).Update("user_like_id", &userid)
 
 	return serializer.Response{
 		Code:  0,

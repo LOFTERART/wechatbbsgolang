@@ -27,6 +27,8 @@ func init() {
 	//创建数据库
 	PG.AutoMigrate(&Communitys{},&Diary{},&User{},&Classify{},&Ad{},&SubTopic{})
 
+
+
 	//defer PG.Close()
 }
 

@@ -33,7 +33,7 @@ func BuildDiary(item models.Diary) Diary {
 		Name:        item.Name,
 		Content:     item.Content,
 		Like:        item.Like,
-		IsLike:      item.IsLike,
+		IsLike:      item.UserIsLike(int64(18)),
 		View:        item.View,
 		Auth:        item.Auth,
 		CommentNum:  item.CommentNum,

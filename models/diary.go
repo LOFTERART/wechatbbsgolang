@@ -14,15 +14,12 @@ type Diary struct {
 	Content     string
 	Like        uint //用户点赞数
 	View        int
-	Auth        string
 	CommentNum  int
 	Address     string
-	Community   string
 	Photos      pq.StringArray `gorm:"type:varchar(300)[]"`
 	PhotosThumb pq.StringArray `gorm:"type:varchar(300)[]"`
 	Tag         string
-	Status      string
-	Specialist  bool
+
 
 	SubTopicId uint          //属于哪个标签
 	ClassifyId uint          //属于哪个大标签

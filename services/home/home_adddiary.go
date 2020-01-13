@@ -25,7 +25,6 @@ func (diary *AddDiaryService) AddDiary(userId uint) serializer.Response {
 		UserId:      userId,
 		Content:     diary.Content,
 		Address:     diary.Address,
-		Community:   diary.Community,
 		Photos:      diary.Photos,
 		PhotosThumb: diary.Photos,
 		Tag:         diary.Tag,

@@ -19,5 +19,8 @@ type User struct {
 	City string
 	Country string
 	Gender int
+	Authentication bool //认证
+	AuthenticationName string //认证的称号 教师 医生
+	IsShowAuthentication bool //是否显示认证
 
 }

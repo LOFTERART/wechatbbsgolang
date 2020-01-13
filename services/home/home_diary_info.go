@@ -17,10 +17,11 @@ func (service *DiaryInfoService) GetDiaryInfo(userId uint) serializer.Response {
 		Where("id=?", uint(service.Id)).
 		First(&DiaryInfo)
 
+	//用户信息  用来装在用户的图片
 	var users []models.User
 
+	//设置已经点赞的用户id
 	var ids []uint
-
 	for _, v := range DiaryInfo.UserLikeId {
 		ids = append(ids, uint(v))
 	}
@@ -29,7 +30,7 @@ func (service *DiaryInfoService) GetDiaryInfo(userId uint) serializer.Response {
 
 	return serializer.Response{
 		Code:  0,
-		Data:  &users,
+		Data:  serializer.BuildHomeDiaryInfoUserPics(users),
 		Msg:   "",
 		Error: "",
 	}

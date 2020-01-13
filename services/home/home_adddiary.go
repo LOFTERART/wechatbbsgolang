@@ -23,8 +23,6 @@ type AddDiaryService struct {
 func (diary *AddDiaryService) AddDiary() serializer.Response {
 
 	dia := models.Diary{
-		Avatar:    diary.Avatar,
-		Name:      diary.Name,
 		Content:   diary.Content,
 		Address:   diary.Address,
 		Community: diary.Community,

@@ -72,7 +72,7 @@ func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
 			}
 		}
 
-		if err := models.PG.Where("community_id=?", service.CommunityId).Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+		if err := models.PG.Preload("User").Where("community_id=?", service.CommunityId).Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",

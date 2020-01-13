@@ -11,8 +11,6 @@ import (
 
 type Diary struct {
 	gorm.Model
-	Avatar      string
-	Name        string
 	Content     string
 	Like        uint
 	IsLike      bool
@@ -30,6 +28,8 @@ type Diary struct {
 	SubTopicId  uint          //属于哪个标签
 	ClassifyId  uint          //属于哪个大标签
 	UserLikeId  pq.Int64Array `gorm:"type:varchar(300)[]"` //点赞人id存为数组
+	User  *User ` gorm:"ForeignKey:UserId" `
+	UserId uint
 }
 
 var timeLayoutStr = "2006/01/02 15:04"

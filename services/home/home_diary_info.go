@@ -3,24 +3,31 @@ package home
 import (
 	"QUZHIYOU/models"
 	"QUZHIYOU/serializer"
+	"fmt"
 )
 
 type DiaryInfoService struct {
-	Id uint `json:"id"`
+	Id int `json:"id"`
 }
 
-func (service *DiaryInfoService)GetDiaryInfo() serializer.Response {
+func (service *DiaryInfoService)GetDiaryInfo(userId uint) serializer.Response {
 
-	var diaryInfo models.Diary
+	fmt.Println(service.Id,"--------sweeee")
+
+	var DiaryInfo models.Diary
 
 
 	models.PG.
+		Where("id=?",uint(89)).
 		Preload("UserInfo").
-		First(&diaryInfo)
+		Preload("SubTopicInfo").
+		Preload("CommunityInfo").
+		First(&DiaryInfo)
+
 
 	return serializer.Response{
 		Code:  0,
-		Data:  &diaryInfo,
+		Data:  serializer.BuildDiary(DiaryInfo,int64(userId)),
 		Msg:   "",
 		Error: "",
 	}

@@ -2,6 +2,7 @@ package serializer
 
 import (
 	"QUZHIYOU/models"
+	"github.com/lib/pq"
 )
 
 //社区动态 序列化
@@ -26,6 +27,8 @@ type Diary struct {
 	CreatedAt            string                   `json:"timer"`
 	SubTopicId           uint                     `json:"tagId"`
 	CommunityId          uint                     `json:"communityId"`
+
+	UserLikes           pq.Int64Array      `json:"user_likes"`
 }
 
 func BuildDiary(item models.Diary, userId int64) Diary {
@@ -50,6 +53,7 @@ func BuildDiary(item models.Diary, userId int64) Diary {
 		CreatedAt:            item.FormatCretaeTime(),
 		SubTopicId:           item.SubTopicId,
 		CommunityId:          item.CommunityId,
+		UserLikes:item.UserLikeId,
 	}
 
 }

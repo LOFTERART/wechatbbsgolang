@@ -21,6 +21,8 @@ type Diary struct {
 	Tag         string
 	ClassifyId uint          //属于哪个大标签
 	UserLikeId pq.Int64Array `gorm:"type:varchar(300)[]"` //点赞人id存为数组
+
+	//外键信息
 	UserInfo   *User         ` gorm:"ForeignKey:UserId" `
 	UserId     uint
 

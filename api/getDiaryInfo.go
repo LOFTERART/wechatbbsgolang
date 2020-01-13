@@ -2,14 +2,22 @@ package api
 
 import (
 	"QUZHIYOU/services/home"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"strconv"
 )
 
 func GetDiaryInfo(c *gin.Context)  {
+	userId := c.Request.Header.Get("userId")
+	i, _ := strconv.Atoi(userId)
+	var Diary home.DiaryInfoService
+	if err:=c.ShouldBind(&Diary);err==nil{
 
-	var diary home.DiaryInfoService
-	res:=diary.GetDiaryInfo()
-	c.IndentedJSON(200,&res)
+		fmt.Println(Diary.Id,"---------diatyid----")
+		Res:=Diary.GetDiaryInfo(uint(i))
+		c.IndentedJSON(200,&Res)
+	}
+
 
 
 }

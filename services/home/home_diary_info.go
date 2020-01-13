@@ -28,9 +28,13 @@ func (service *DiaryInfoService) GetDiaryInfo(userId uint) serializer.Response {
 
 	models.PG.Where("id in (?)", ids).Find(&users)
 
+	res:=serializer.BuildHomeDiaryInfoUserPics(users)
+
+
+
 	return serializer.Response{
 		Code:  0,
-		Data:  serializer.BuildHomeDiaryInfoUserPics(users),
+		Data:  map[string]interface{}{"total":len(ids),"items":&res},
 		Msg:   "",
 		Error: "",
 	}

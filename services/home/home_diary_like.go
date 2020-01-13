@@ -31,7 +31,7 @@ func (service *DiaryLikeService) LikeDiary(userid pq.Int64Array) serializer.Resp
 			}
 		}
 
-		models.PG.Model(&diary).Updates(map[string]interface{}{"like": diary.Like + 1, "user_like_id": diary.UserLikeId})
+		models.PG.Model(&diary).Updates(map[string]interface{}{"like": diary.Like - 1, "user_like_id": diary.UserLikeId})
 
 	} else {
 		for _, v := range diary.UserLikeId {

@@ -11,7 +11,7 @@ type ListDiaryService struct {
 	CommunityId int `form:"communityId" json:"communityId" `
 	ClassifyId  int `form:"classifyId" json:"classifyId"`
 	SubTopicId  int `form:"sub_topic_id" json:"sub_topic_id"`
-	UserId      int `form:"user_id" json:"user_id"`   //传递userid 进入用户胡中心
+	UserId      int `form:"user_id" json:"user_id"` //传递userid 进入用户胡中心
 }
 
 func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
@@ -72,7 +72,7 @@ func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
 			}
 		}
 
-	}else if service.UserId > 0 {
+	} else if service.UserId > 0 {
 		if err := models.PG.Where(" user_id=? ", service.UserId).Model(models.Diary{}).Count(&total).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
@@ -93,7 +93,7 @@ func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
 			}
 		}
 
-	}  else {
+	} else {
 		if err := models.PG.Where("community_id=?", service.CommunityId).Model(models.Diary{}).Count(&total).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
@@ -115,6 +115,6 @@ func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
 		}
 	}
 
-	return serializer.BuildListResponse(serializer.BuildDiarys(diarys,userId), uint(total))
+	return serializer.BuildListResponse(serializer.BuildDiarys(diarys, userId), uint(total))
 
 }

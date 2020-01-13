@@ -12,8 +12,7 @@ import (
 type Diary struct {
 	gorm.Model
 	Content     string
-	Like        uint
-	IsLike      bool
+	Like        uint //用户点赞数
 	View        int
 	Auth        string
 	CommentNum  int
@@ -24,12 +23,15 @@ type Diary struct {
 	Tag         string
 	Status      string
 	Specialist  bool
-	CommunityId uint
-	SubTopicId  uint          //属于哪个标签
-	ClassifyId  uint          //属于哪个大标签
-	UserLikeId  pq.Int64Array `gorm:"type:varchar(300)[]"` //点赞人id存为数组
-	User  *User ` gorm:"ForeignKey:UserId" `
-	UserId uint
+
+	SubTopicId uint          //属于哪个标签
+	ClassifyId uint          //属于哪个大标签
+	UserLikeId pq.Int64Array `gorm:"type:varchar(300)[]"` //点赞人id存为数组
+	UserInfo   *User         ` gorm:"ForeignKey:UserId" `
+	UserId     uint
+
+	CommunityInfo *Communitys ` gorm:"ForeignKey:CommunityId" `
+	CommunityId   uint
 }
 
 var timeLayoutStr = "2006/01/02 15:04"

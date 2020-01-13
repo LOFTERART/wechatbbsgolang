@@ -3,7 +3,6 @@ package home
 import (
 	"QUZHIYOU/models"
 	"QUZHIYOU/serializer"
-	"fmt"
 )
 
 type DiaryInfoService struct {
@@ -12,13 +11,11 @@ type DiaryInfoService struct {
 
 func (service *DiaryInfoService)GetDiaryInfo(userId uint) serializer.Response {
 
-	fmt.Println(service.Id,"--------sweeee")
 
 	var DiaryInfo models.Diary
 
-
 	models.PG.
-		Where("id=?",uint(89)).
+		Where("id=?",uint(service.Id)).
 		Preload("UserInfo").
 		Preload("SubTopicInfo").
 		Preload("CommunityInfo").

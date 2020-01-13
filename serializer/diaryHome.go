@@ -13,6 +13,7 @@ type Diary struct {
 	Authentication bool  `json:"authentication"`//认证
 	AuthenticationName string `json:"authentication_name"`//认证的称号 教师 医生
 	IsShowAuthentication bool `json:"is_show_authentication"`//是否显示认证
+	Tag         string                   `json:"tag"`
 
 	Content     string                   `json:"content"`
 	Like        uint                     `json:"like"`
@@ -22,7 +23,6 @@ type Diary struct {
 	Community   string                   `json:"community"` //社区名字
 	Photos      []map[string]interface{} `json:"image_url_came"`
 	PhotosThumb []map[string]interface{} `json:"image_url_came_thumb"`
-	Tag         string                   `json:"tag"`
 	CreatedAt   string                   `json:"timer"`
 	SubTopicId  uint                     `json:"tagId"`
 	CommunityId uint                     `json:"communityId"`
@@ -44,8 +44,7 @@ func BuildDiary(item models.Diary, userId int64) Diary {
 		Community:   item.CommunityInfo.Name,
 		Photos:      item.FormatPhotos(item.Photos),
 		PhotosThumb: item.FormatPhotos(item.PhotosThumb),
-		Tag:         item.Tag,
-
+		Tag:         item.SubTopicInfo.Name,
 		Avatar:      item.UserInfo.AvatarUrl,
 		CreatedAt:   item.FormatCretaeTime(),
 		SubTopicId:  item.SubTopicId,

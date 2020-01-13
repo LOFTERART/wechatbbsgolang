@@ -19,9 +19,6 @@ type Diary struct {
 	Photos      pq.StringArray `gorm:"type:varchar(300)[]"`
 	PhotosThumb pq.StringArray `gorm:"type:varchar(300)[]"`
 	Tag         string
-
-
-	SubTopicId uint          //属于哪个标签
 	ClassifyId uint          //属于哪个大标签
 	UserLikeId pq.Int64Array `gorm:"type:varchar(300)[]"` //点赞人id存为数组
 	UserInfo   *User         ` gorm:"ForeignKey:UserId" `
@@ -29,6 +26,9 @@ type Diary struct {
 
 	CommunityInfo *Communitys ` gorm:"ForeignKey:CommunityId" `
 	CommunityId   uint
+
+	SubTopicInfo *SubTopic ` gorm:"ForeignKey:SubTopicId" `
+	SubTopicId uint
 }
 
 var timeLayoutStr = "2006/01/02 15:04"

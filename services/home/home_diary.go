@@ -75,6 +75,7 @@ func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
 		if err := models.PG.
 			Preload("UserInfo").
 			Preload("CommunityInfo").
+			Preload("SubTopicInfo").
 			Where("community_id=?", service.CommunityId).Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,

@@ -12,10 +12,9 @@ func BuildHomeDiaryInfoUserPic(item *models.User) *UserPics {
 
 }
 
-
 func BuildHomeDiaryInfoUserPics(item []*models.User) (pics []*UserPics) {
 
-	for _,v:=range item{
+	for _, v := range item {
 		pics = append(pics, BuildHomeDiaryInfoUserPic(v))
 	}
 

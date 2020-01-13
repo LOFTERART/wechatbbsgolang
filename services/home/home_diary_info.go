@@ -7,7 +7,7 @@ import (
 )
 
 type DiaryInfoService struct {
-	Id int `json:"id"`
+	Id int `form:"id" json:"id" `
 }
 
 func (service *DiaryInfoService)GetDiaryInfo(userId uint) serializer.Response {
@@ -25,9 +25,21 @@ func (service *DiaryInfoService)GetDiaryInfo(userId uint) serializer.Response {
 		First(&DiaryInfo)
 
 
+	var users []models.User
+
+	var ids  []uint
+
+	for _,v:=range DiaryInfo.UserLikeId{
+		ids = append(ids, uint(v))
+	}
+
+	models.PG.Where("id in (?)", ids).Find(&users)
+
+
+
 	return serializer.Response{
 		Code:  0,
-		Data:  serializer.BuildDiary(DiaryInfo,int64(userId)),
+		Data:  &users,
 		Msg:   "",
 		Error: "",
 	}

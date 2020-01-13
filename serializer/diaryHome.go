@@ -30,6 +30,8 @@ type Diary struct {
 
 	UserLikes pq.Int64Array `json:"user_likes"`
 	UserId    uint          `json:"user_id"`
+
+	UserInfo *User  `json:"user_info"`   //用户信息表
 }
 
 func BuildDiary(item models.Diary, userId int64) Diary {
@@ -56,6 +58,7 @@ func BuildDiary(item models.Diary, userId int64) Diary {
 		CommunityId:          item.CommunityId,
 		UserLikes:            item.UserLikeId,
 		UserId:               item.UserInfo.ID,
+		UserInfo:BuildUserFormat(item.UserInfo),
 	}
 
 }

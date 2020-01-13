@@ -93,6 +93,10 @@ func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
 			}
 		}
 
+
+
+
+
 	} else {
 		if err := models.PG.Where("community_id=?", service.CommunityId).Model(models.Diary{}).Count(&total).Error; err != nil {
 			return serializer.Response{

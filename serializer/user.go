@@ -10,6 +10,12 @@ import (
 type User struct {
 	Id    uint   `  json:"userId" `
 	Token string `json:"token"`
+	NickName  string `json:"nick_name"`
+	AvatarUrl string `json:"avatar_url"`
+	Province  string `json:"province"`
+	City      string `json:"city"`
+	Country   string `json:"country"`
+	Gender    int    `json:"gender"`
 }
 
 func BuildUser(user *models.User) *User {

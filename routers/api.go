@@ -42,6 +42,7 @@ func InitRouter() *gin.Engine {
 		home.GET("/getcommunity", api.Getcommunity)
 		home.GET("/getsubtopic", api.Getsubtopic)
 		home.POST("/likediary", api.PostDiaryLike)
+		home.GET("/diaryinfo", api.GetDiaryInfo) //获取一条日记信息
 	}
 
 	return router

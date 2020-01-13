@@ -34,19 +34,21 @@ func (service *DiaryLikeService) LikeDiary(userid pq.Int64Array) serializer.Resp
 		models.PG.Model(&diary).Updates(map[string]interface{}{"like": diary.Like - 1, "user_like_id": diary.UserLikeId})
 
 	} else {
-		for _, v := range diary.UserLikeId {
-			if userid[0] != v {
-				userid = append(userid, v)
-			}
+		//for _, v := range diary.UserLikeId {
+		//	if userid[0] != v {
+		//		userid = append(userid, v)
+		//	}
+		//
+		//}
+		models.PG.Model(&diary).Updates(map[string]interface{}{"like": diary.Like + 1})
+		models.PG.Exec("UPDATE diary SET user_like_id = user_like_id||?  WHERE id= ? ", userid, service.DiaryId)
 
-		}
-		models.PG.Model(&diary).Updates(map[string]interface{}{"like": diary.Like + 1, "user_like_id": &userid})
 	}
 
 	return serializer.Response{
 		Code:  0,
 		Data:  nil,
-		Msg:   "点赞成功",
+		Msg:   "操作成功",
 		Error: "",
 	}
 

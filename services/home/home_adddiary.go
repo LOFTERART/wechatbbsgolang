@@ -35,6 +35,7 @@ func (diary *AddDiaryService) AddDiary(userId uint) serializer.Response {
 
 	//创建话题
 	models.PG.Create(&dia)
+
 	//更新tag sendNum
 	var subTopic models.SubTopic
 	subTopic.ID = diary.ClassifyId

@@ -12,7 +12,6 @@ type AddDiaryService struct {
 	Address     string   `form:"address" json:"address" `
 	Community   string   `form:"community" json:"community"`
 	Photos      []string `form:"photos" json:"photos"`
-	Tag         string   `form:"tag" json:"tag"`
 	PhotosThumb []string `form:"photosthumb" json:"photosthumb"`
 	CommunityId uint     `form:"communityId" json:"communityId" `  //社区id
 	ClassifyId  uint     `form:"classifyId" json:"classifyId" `    //标签ID
@@ -27,7 +26,6 @@ func (diary *AddDiaryService) AddDiary(userId uint) serializer.Response {
 		Address:     diary.Address,
 		Photos:      diary.Photos,
 		PhotosThumb: diary.Photos,
-		Tag:         diary.Tag,
 		CommunityId: diary.CommunityId,
 		SubTopicId:  diary.SubTopicId,
 		ClassifyId:  diary.ClassifyId,

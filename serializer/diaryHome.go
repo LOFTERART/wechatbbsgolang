@@ -6,26 +6,26 @@ import (
 
 //社区动态 序列化
 type Diary struct {
-	ID                   uint   `json:"id"`
-	Name                 string `json:"name"`
-	IsLike               bool   `json:"is_like"` //计算得出是否点赞
-	Avatar               string `json:"avatar"`
-	Authentication       bool   `json:"authentication"`         //认证
-	AuthenticationName   string `json:"authentication_name"`    //认证的称号 教师 医生
-	IsShowAuthentication bool   `json:"is_show_authentication"` //是否显示认证
-	Tag                  string `json:"tag"`
-
-	Content     string                   `json:"content"`
-	Like        uint                     `json:"like"`
-	View        int                      `json:"views"`
-	CommentNum  int                      `json:"comment"`
-	Address     string                   `json:"address"`
-	Community   string                   `json:"community"` //社区名字
-	Photos      []map[string]interface{} `json:"image_url_came"`
-	PhotosThumb []map[string]interface{} `json:"image_url_came_thumb"`
-	CreatedAt   string                   `json:"timer"`
-	SubTopicId  uint                     `json:"tagId"`
-	CommunityId uint                     `json:"communityId"`
+	ID                   uint                     `json:"id"`
+	Name                 string                   `json:"name"`
+	IsLike               bool                     `json:"is_like"` //计算得出是否点赞
+	Avatar               string                   `json:"avatar"`
+	Authentication       bool                     `json:"authentication"`         //认证
+	AuthenticationName   string                   `json:"authentication_name"`    //认证的称号 教师 医生
+	IsShowAuthentication bool                     `json:"is_show_authentication"` //是否显示认证
+	Tag                  string                   `json:"tag"`
+	SubTopicInfo         *SubTopic        `json:"sub_topic_info"`
+	Content              string                   `json:"content"`
+	Like                 uint                     `json:"like"`
+	View                 int                      `json:"views"`
+	CommentNum           int                      `json:"comment"`
+	Address              string                   `json:"address"`
+	Community            string                   `json:"community"` //社区名字
+	Photos               []map[string]interface{} `json:"image_url_came"`
+	PhotosThumb          []map[string]interface{} `json:"image_url_came_thumb"`
+	CreatedAt            string                   `json:"timer"`
+	SubTopicId           uint                     `json:"tagId"`
+	CommunityId          uint                     `json:"communityId"`
 }
 
 func BuildDiary(item models.Diary, userId int64) Diary {
@@ -45,6 +45,7 @@ func BuildDiary(item models.Diary, userId int64) Diary {
 		Photos:               item.FormatPhotos(item.Photos),
 		PhotosThumb:          item.FormatPhotos(item.PhotosThumb),
 		Tag:                  item.SubTopicInfo.Name,
+		SubTopicInfo:         BuildSubTopic(item.SubTopicInfo),
 		Avatar:               item.UserInfo.AvatarUrl,
 		CreatedAt:            item.FormatCretaeTime(),
 		SubTopicId:           item.SubTopicId,

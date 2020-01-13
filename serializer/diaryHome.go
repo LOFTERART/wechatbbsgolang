@@ -45,7 +45,7 @@ func BuildDiary(item models.Diary, userId int64) Diary {
 		Photos:               item.FormatPhotos(item.Photos),
 		PhotosThumb:          item.FormatPhotos(item.PhotosThumb),
 		Tag:                  item.SubTopicInfo.Name,
-		SubTopicInfo:         BuildSubTopic(item.SubTopicInfo),
+		SubTopicInfo:         BuildSubTopic(item.SubTopicInfo),  //子主题info信息
 		Avatar:               item.UserInfo.AvatarUrl,
 		CreatedAt:            item.FormatCretaeTime(),
 		SubTopicId:           item.SubTopicId,

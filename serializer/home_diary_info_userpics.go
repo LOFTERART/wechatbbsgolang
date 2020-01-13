@@ -12,12 +12,14 @@ func BuildHomeDiaryInfoUserPic(item *models.User) *UserPics {
 
 }
 
-func BuildHomeDiaryInfoUserPics(item []*models.User) (pics []*UserPics) {
+func BuildHomeDiaryInfoUserPics(item []*models.User) ( []*UserPics) {
+
+	pics:=make([]*UserPics,0)
 
 	for _, v := range item {
 		pics = append(pics, BuildHomeDiaryInfoUserPic(v))
 	}
 
-	return
+	return pics
 
 }

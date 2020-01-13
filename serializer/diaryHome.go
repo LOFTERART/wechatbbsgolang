@@ -15,7 +15,7 @@ type Diary struct {
 	AuthenticationName   string                   `json:"authentication_name"`    //认证的称号 教师 医生
 	IsShowAuthentication bool                     `json:"is_show_authentication"` //是否显示认证
 	Tag                  string                   `json:"tag"`
-	SubTopicInfo         *SubTopic        `json:"sub_topic_info"`
+	SubTopicInfo         *SubTopic                `json:"sub_topic_info"`
 	Content              string                   `json:"content"`
 	Like                 uint                     `json:"like"`
 	View                 int                      `json:"views"`
@@ -28,7 +28,8 @@ type Diary struct {
 	SubTopicId           uint                     `json:"tagId"`
 	CommunityId          uint                     `json:"communityId"`
 
-	UserLikes           pq.Int64Array      `json:"user_likes"`
+	UserLikes pq.Int64Array `json:"user_likes"`
+	UserId    uint          `json:"user_id"`
 }
 
 func BuildDiary(item models.Diary, userId int64) Diary {
@@ -48,12 +49,13 @@ func BuildDiary(item models.Diary, userId int64) Diary {
 		Photos:               item.FormatPhotos(item.Photos),
 		PhotosThumb:          item.FormatPhotos(item.PhotosThumb),
 		Tag:                  item.SubTopicInfo.Name,
-		SubTopicInfo:         BuildSubTopic(item.SubTopicInfo),  //子主题info信息
+		SubTopicInfo:         BuildSubTopic(item.SubTopicInfo), //子主题info信息
 		Avatar:               item.UserInfo.AvatarUrl,
 		CreatedAt:            item.FormatCretaeTime(),
 		SubTopicId:           item.SubTopicId,
 		CommunityId:          item.CommunityId,
-		UserLikes:item.UserLikeId,
+		UserLikes:            item.UserLikeId,
+		UserId:               item.UserInfo.ID,
 	}
 
 }

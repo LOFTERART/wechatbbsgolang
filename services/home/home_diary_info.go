@@ -18,7 +18,7 @@ func (service *DiaryInfoService) GetDiaryInfo(userId uint) serializer.Response {
 		First(&DiaryInfo)
 
 	//用户信息  用来装在用户的图片
-	var users []models.User
+	var users []*models.User
 
 	//设置已经点赞的用户id
 	var ids []uint

@@ -6,14 +6,14 @@ type UserPics struct {
 	UserPics string `json:"user_pics"`
 }
 
-func BuildHomeDiaryInfoUserPic(item models.User) UserPics {
+func BuildHomeDiaryInfoUserPic(item *models.User) *UserPics {
 
-	return UserPics{UserPics: item.AvatarUrl}
+	return &UserPics{UserPics: item.AvatarUrl}
 
 }
 
 
-func BuildHomeDiaryInfoUserPics(item []models.User) (pics []UserPics) {
+func BuildHomeDiaryInfoUserPics(item []*models.User) (pics []*UserPics) {
 
 	for _,v:=range item{
 		pics = append(pics, BuildHomeDiaryInfoUserPic(v))

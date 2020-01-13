@@ -65,3 +65,15 @@ func BuildUser(user *models.User) *User {
 	}
 
 }
+
+func BuildUserFormat(item models.User) User {
+	return User{
+		Id:        item.ID,
+		NickName:  item.NickName,
+		AvatarUrl: item.AvatarUrl,
+		Province:  item.Province,
+		City:      item.City,
+		Country:   item.Country,
+		Gender:    item.Gender,
+	}
+}

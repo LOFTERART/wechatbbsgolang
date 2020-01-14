@@ -51,12 +51,12 @@ func (Diary *Diary) FormatPhotos(photo []string) (photos []map[string]interface{
 	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
 
 	for _, v := range photo {
-		src, err := imaging.Open(dir + "/static/" + v)
+		src, err := imaging.Open(dir + "/static/" + v, imaging.AutoOrientation(true))
 		if err != nil {
 			log.Fatalf("failed to open image: %v", err)
 		}
-		src = imaging.Resize(src, 800, 800, imaging.NearestNeighbor)
-		dst := imaging.New(400, 400, color.NRGBA{255, 255, 255, 0})
+		src = imaging.Resize(src, 500, 500, imaging.Lanczos)
+		dst := imaging.New(500, 500, color.NRGBA{255, 255, 255, 0})
 		dst = imaging.Paste(dst, src, image.Pt(0, 0))
 		imaging.Save(dst, dir+"/static/"+v)
 

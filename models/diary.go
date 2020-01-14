@@ -2,9 +2,14 @@ package models
 
 import (
 	"github.com/chenhg5/collection"
+	"github.com/disintegration/imaging"
 	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
+	"image"
+	"image/color"
 	"os"
+	"path/filepath"
+	"log"
 )
 
 //社区动态
@@ -43,7 +48,15 @@ func (Diary *Diary) FormatCretaeTime() string {
 
 //格式化photos
 func (Diary *Diary) FormatPhotos(photo []string) (photos []map[string]interface{}) {
-
+	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
+	src, err := imaging.Open(dir + "/static/" + file.Filename)
+	if err != nil {
+		log.Fatalf("failed to open image: %v", err)
+	}
+	src = imaging.Resize(src, 300, 300, imaging.Lanczos)
+	dst := imaging.New(300, 300, color.NRGBA{255, 255, 255, 0})
+	dst = imaging.Paste(dst, src, image.Pt(0, 0))
+	imaging.Save(dst, dir+"/static/"+"b.jpg")
 	for _, v := range photo {
 		maPhoto := make(map[string]interface{})
 		maPhoto["url"] = os.Getenv("PIC_TOKEN") + v

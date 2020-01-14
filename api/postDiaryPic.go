@@ -1,11 +1,7 @@
 package api
 
 import (
-	"github.com/disintegration/imaging"
 	"github.com/gin-gonic/gin"
-	"image"
-	"image/color"
-	"log"
 	"os"
 	"path/filepath"
 )
@@ -36,14 +32,7 @@ func PostDiaryPic(c *gin.Context) {
 			return
 		}
 
-		src, err := imaging.Open(dir + "/static/" + file.Filename)
-		if err != nil {
-			log.Fatalf("failed to open image: %v", err)
-		}
-		src = imaging.Resize(src, 300, 300, imaging.Lanczos)
-		dst := imaging.New(300, 300, color.NRGBA{255, 255, 255, 0})
-		dst = imaging.Paste(dst, src, image.Pt(0, 0))
-		imaging.Save(dst, dir+"/static/"+"b.jpg")
+
 
 		c.IndentedJSON(200, gin.H{
 			"code": 0,

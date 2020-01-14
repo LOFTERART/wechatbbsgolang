@@ -6,7 +6,7 @@ require (
 	github.com/astaxie/beego v1.12.0
 	github.com/chenhg5/collection v0.0.0-20191118032303-cb21bccce4c3
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
-	github.com/disintegration/imaging v1.6.2 // indirect
+	github.com/disintegration/imaging v1.6.2
 	github.com/gin-gonic/gin v1.5.0
 	github.com/go-redis/redis v6.15.5+incompatible
 	github.com/go-sql-driver/mysql v1.4.1

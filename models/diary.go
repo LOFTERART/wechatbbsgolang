@@ -49,15 +49,17 @@ func (Diary *Diary) FormatCretaeTime() string {
 //格式化photos
 func (Diary *Diary) FormatPhotos(photo []string) (photos []map[string]interface{}) {
 	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
-	src, err := imaging.Open(dir + "/static/" + file.Filename)
-	if err != nil {
-		log.Fatalf("failed to open image: %v", err)
-	}
-	src = imaging.Resize(src, 300, 300, imaging.Lanczos)
-	dst := imaging.New(300, 300, color.NRGBA{255, 255, 255, 0})
-	dst = imaging.Paste(dst, src, image.Pt(0, 0))
-	imaging.Save(dst, dir+"/static/"+"b.jpg")
+
 	for _, v := range photo {
+		src, err := imaging.Open(dir + "/static/" + v)
+		if err != nil {
+			log.Fatalf("failed to open image: %v", err)
+		}
+		src = imaging.Resize(src, 800, 800, imaging.NearestNeighbor)
+		dst := imaging.New(400, 400, color.NRGBA{255, 255, 255, 0})
+		dst = imaging.Paste(dst, src, image.Pt(0, 0))
+		imaging.Save(dst, dir+"/static/"+v)
+
 		maPhoto := make(map[string]interface{})
 		maPhoto["url"] = os.Getenv("PIC_TOKEN") + v
 		photos = append(photos, maPhoto)

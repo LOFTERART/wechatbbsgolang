@@ -25,7 +25,12 @@ func init() {
 	// debug 模式开启sql日志
 	PG.LogMode(true)
 	//创建数据库
-	PG.AutoMigrate(&Communitys{},&Diary{},&User{},&Classify{},&Ad{},&SubTopic{})
+	//PG.AutoMigrate(&Communitys{},
+	//&Diary{},
+	//&User{},
+	//&Classify{},
+	//&Ad{},
+	//&SubTopic{})
 
 
 

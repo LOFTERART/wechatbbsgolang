@@ -9,7 +9,7 @@ import (
 
 func init() {
 	godotenv.Load()
-	models.Initialized()
+	//models.Initialized()
 }
 
 func main() {

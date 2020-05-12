@@ -3,14 +3,15 @@ package routers
 import (
 	"QUZHIYOU/api"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func InitRouter() *gin.Engine {
 
 	// 初始化默认路由
 	router := gin.Default()
-	//router.StaticFS("/static", http.Dir("./static"))
-	router.Static("/static", "./static")
+	router.StaticFS("/static", http.Dir("static"))
+	//router.Static("/static", "./static")
 
 
 	login:=router.Group("/login")

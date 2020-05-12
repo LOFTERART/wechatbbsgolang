@@ -1,9 +1,7 @@
 package api
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
-	"os"
 )
 
 //返回字段
@@ -14,7 +12,7 @@ type Back struct {
 
 func PostDiaryPic(c *gin.Context) {
 	//获取文件路径
-	dir, _ := os.Getwd()
+	//dir, _ := os.Getwd()
 	form, _ := c.MultipartForm()
 	files := form.File["file"]
 	var back Back
@@ -23,7 +21,7 @@ func PostDiaryPic(c *gin.Context) {
 		back.Url = file.Filename
 		back.PostIndexSort = index
 		// 上传文件至指定目录
-		if err := c.SaveUploadedFile(file, dir+"/static/"+file.Filename); err != nil {
+		if err := c.SaveUploadedFile(file, "./static/"+file.Filename); err != nil {
 			c.IndentedJSON(200, gin.H{
 				"code": 404,
 				"data": nil,
@@ -39,6 +37,5 @@ func PostDiaryPic(c *gin.Context) {
 		})
 	}
 
-	fmt.Println(back,"------back-----")
 
 }

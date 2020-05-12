@@ -1,9 +1,9 @@
 package api
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"os"
-	"path/filepath"
 )
 
 //返回字段
@@ -14,7 +14,7 @@ type Back struct {
 
 func PostDiaryPic(c *gin.Context) {
 	//获取文件路径
-	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
+	dir, _ := os.Getwd()
 	form, _ := c.MultipartForm()
 	files := form.File["file"]
 	var back Back
@@ -32,13 +32,13 @@ func PostDiaryPic(c *gin.Context) {
 			return
 		}
 
-
-
 		c.IndentedJSON(200, gin.H{
 			"code": 0,
 			"data": back,
 			"msg":  "ok",
 		})
 	}
+
+	fmt.Println(back,"------back-----")
 
 }

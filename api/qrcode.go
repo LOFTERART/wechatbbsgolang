@@ -5,7 +5,6 @@ import (
 	"github.com/medivhzhan/weapp/v2"
 	"io/ioutil"
 	"os"
-	"path/filepath"
 )
 
 var (
@@ -16,7 +15,7 @@ var (
 func Getqrcode(c *gin.Context) {
 
 	//获取文件路径
-	dir, _ = filepath.Abs(filepath.Dir(os.Args[0]))
+	dir, _ = os.Getwd()
 
 	token, _ := weapp.GetAccessToken(os.Getenv("WXAPP_ID"), os.Getenv("WXSECRET"))
 

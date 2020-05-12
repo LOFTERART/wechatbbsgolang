@@ -12,12 +12,16 @@ import (
 
 
 var PG *gorm.DB
-func init() {
+
+func InitPG() {
 	var (
 		err error
 	)
 	PG, err = gorm.Open("postgres", "host=localhost user=postgres dbname=BBS sslmode=disable password=loveys1314")
 	fmt.Println(PG,err,"--Acc----")
+	if err != nil {
+		return
+	}
 	PG.SingularTable(true)
 
 	PG.DB().SetMaxIdleConns(10)
@@ -25,7 +29,7 @@ func init() {
 	// debug 模式开启sql日志
 	PG.LogMode(true)
 	//创建数据库
-	PG.AutoMigrate(&Communitys{},&Diary{},&User{},&Classify{},&Ad{},&SubTopic{})
+	//PG.CreateTable(&Communitys{},&Diary{},&User{},&Classify{},&Ad{},&SubTopic{})
 
 
 

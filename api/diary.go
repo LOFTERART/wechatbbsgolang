@@ -2,6 +2,7 @@ package api
 
 import (
 	"QUZHIYOU/services/home"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"strconv"
 )
@@ -9,6 +10,7 @@ import (
 func HomeList(c *gin.Context) {
 
 	userid := c.Request.Header.Get("userId")
+	fmt.Println(userid,"uid---")
 	i, _ := strconv.Atoi(userid)
 
 	var paramsHome home.ListDiaryService

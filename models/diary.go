@@ -7,9 +7,8 @@ import (
 	"github.com/lib/pq"
 	"image"
 	"image/color"
-	"os"
-	"path/filepath"
 	"log"
+	"os"
 )
 
 //社区动态
@@ -48,8 +47,7 @@ func (Diary *Diary) FormatCretaeTime() string {
 
 //格式化photos
 func (Diary *Diary) FormatPhotos(photo []string) (photos []map[string]interface{}) {
-	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
-
+	dir, _ := os.Getwd()
 	for _, v := range photo {
 		src, err := imaging.Open(dir + "/static/" + v, imaging.AutoOrientation(true))
 		if err != nil {

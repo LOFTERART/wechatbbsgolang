@@ -6,15 +6,13 @@ import (
 )
 
 type AdService struct {
-
 }
 
-func (ad *AdService)GetAds() serializer.Response {
+func (ad *AdService) GetAds() serializer.Response {
 
 	var ads []*models.Ad
 
-	models.PG.Where("is_shelves=?",true).Find(&ads)
-
+	models.PG.Where("is_shelves=?", true).Find(&ads)
 
 	return serializer.Response{
 		Code:  0,
@@ -22,8 +20,5 @@ func (ad *AdService)GetAds() serializer.Response {
 		Msg:   "",
 		Error: "",
 	}
-
-
-
 
 }

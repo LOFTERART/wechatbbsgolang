@@ -31,8 +31,6 @@ func InitPG() {
 	//创建数据库
 	//PG.CreateTable(&Communitys{},&Diary{},&User{},&Classify{},&Ad{},&SubTopic{})
 
-
-
 	//defer PG.Close()
 }
 

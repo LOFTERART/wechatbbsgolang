@@ -1,13 +1,8 @@
 package models
 
 import (
-	"github.com/disintegration/imaging"
 	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
-	"image"
-	"image/color"
-	"log"
-	"os"
 )
 
 //社区动态
@@ -45,24 +40,10 @@ func (Diary *Diary) FormatCretaeTime() string {
 }
 
 //格式化photos
-func (Diary *Diary) FormatPhotos(photo []string) (photos []map[string]interface{}) {
-	dir, _ := os.Getwd()
-	for _, v := range photo {
-		src, err := imaging.Open(dir + "/static/" + v, imaging.AutoOrientation(true))
-		if err != nil {
-			log.Fatalf("failed to open image: %v", err)
-		}
-		src = imaging.Resize(src, 500, 500, imaging.Lanczos)
-		dst := imaging.New(500, 500, color.NRGBA{255, 255, 255, 0})
-		dst = imaging.Paste(dst, src, image.Pt(0, 0))
-		imaging.Save(dst, dir+"/static/"+v)
+func (Diary *Diary) FormatPhotos(photo string) (photos []string) {
 
-		maPhoto := make(map[string]interface{})
-		maPhoto["url"] = os.Getenv("PIC_TOKEN") + v
-		photos = append(photos, maPhoto)
-	}
-
-	return
+	photos=append(photos, photo)
+	return photos
 
 }
 

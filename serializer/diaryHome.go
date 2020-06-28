@@ -22,8 +22,8 @@ type Diary struct {
 	CommentNum           int                      `json:"comment"`
 	Address              string                   `json:"address"`
 	Community            string                   `json:"community"` //社区名字
-	Photos               []map[string]interface{} `json:"image_url_came"`
-	PhotosThumb          []map[string]interface{} `json:"image_url_came_thumb"`
+	Photos               string `json:"image_url_came"`
+	PhotosThumb         string `json:"image_url_came_thumb"`
 	CreatedAt            string                   `json:"timer"`
 	SubTopicId           uint                     `json:"tagId"`
 	CommunityId          uint                     `json:"communityId"`
@@ -48,8 +48,8 @@ func BuildDiary(item models.Diary, userId int64) Diary {
 		CommentNum:           item.CommentNum,
 		Address:              item.Address,
 		Community:            item.CommunityInfo.Name,
-		//Photos:               item.FormatPhotos(item.Photos),
-		//PhotosThumb:          item.FormatPhotos(item.PhotosThumb),
+		Photos:               item.Photos,
+		PhotosThumb:          item.PhotosThumb,
 		Tag:                  item.SubTopicInfo.Name,
 		SubTopicInfo:         BuildSubTopic(item.SubTopicInfo), //子主题info信息
 		Avatar:               item.UserInfo.AvatarUrl,

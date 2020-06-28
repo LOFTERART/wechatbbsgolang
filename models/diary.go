@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"github.com/chenhg5/collection"
 	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
@@ -61,8 +60,6 @@ func (Diary *Diary) UserIsLike(id string) bool {
 	}
 
 	b := collection.Collect(array).Contains(id)
-
-	fmt.Println(b,"--------fffffffffbbbbb------")
 
 	return b
 

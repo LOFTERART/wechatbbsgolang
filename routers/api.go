@@ -48,6 +48,7 @@ func InitRouter() *gin.Engine {
 	{
 		comment.POST("/creatediarycomment",api.CreateComment)
 		comment.POST("/getdiarycomment",api.GetComment)
+		comment.POST("/likediarycomment",api.LikeDiaryComment)
 	}
 
 	return router

@@ -8,7 +8,6 @@ import (
 func PostDiaryLike(c *gin.Context) {
 
 	userId := c.Request.Header.Get("userId")
-	//i, _ := strconv.Atoi(userId)
 
 	var userids []string
 	userids = append(userids, userId)

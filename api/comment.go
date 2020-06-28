@@ -28,3 +28,22 @@ func GetComment(c *gin.Context)  {
 		c.JSON(200, &res)
 	}
 }
+
+
+func LikeDiaryComment(c *gin.Context) {
+
+	userId := c.Request.Header.Get("userId")
+
+	var userids []string
+	userids = append(userids, userId)
+
+	var PassUserId service.LikeDairyComment
+
+	if err := c.ShouldBind(&PassUserId); err == nil {
+		res := PassUserId.LikeComment(userids)
+		c.JSON(200, &res)
+	} else {
+		c.JSON(200, ErrorResponse(err))
+	}
+
+}

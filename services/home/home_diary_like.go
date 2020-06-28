@@ -3,7 +3,6 @@ package home
 import (
 	"QUZHIYOU/models"
 	"QUZHIYOU/serializer"
-	"fmt"
 	"github.com/jinzhu/gorm"
 	"strings"
 )
@@ -23,11 +22,9 @@ func (service *DiaryLikeService) LikeDiary(userid []string) serializer.Response 
 
 	models.DB.First(&diary)
 	UserLikeArrayId := strings.Split(diary.UserLikeId, ",")
-	fmt.Println(UserLikeArrayId,"------UserLikeArrayId-------",diary.UserLikeId)
 	if service.Type {
 		for k, v := range UserLikeArrayId {
 			if userid[0] == v {
-				//diary.UserLikeId = append(diary.UserLikeId[:k], diary.UserLikeId[k+1:]...)
 				UserLikeArrayId = append(UserLikeArrayId[:k], UserLikeArrayId[k+1:]...)
 			}
 		}

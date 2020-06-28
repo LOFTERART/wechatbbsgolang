@@ -8,7 +8,7 @@ import (
 
 func init() {
 	godotenv.Load()
-	models.InitPG()
+	//models.InitPG()
 	models.Initialized()
 }
 

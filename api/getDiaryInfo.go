@@ -15,7 +15,7 @@ func GetDiaryInfo(c *gin.Context)  {
 
 		fmt.Println(Diary.Id,"---------diatyid----")
 		Res:=Diary.GetDiaryInfo(uint(i))
-		c.IndentedJSON(200,&Res)
+		c.JSON(200,&Res)
 	}
 
 

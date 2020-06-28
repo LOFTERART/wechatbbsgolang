@@ -1,28 +1,28 @@
 package api
 
 import (
+	"QUZHIYOU/utils"
 	"github.com/gin-gonic/gin"
+	"path"
+	"strings"
 )
 
-//返回字段
-type Back struct {
-	Url           string `json:"url"`
-	PostIndexSort int    `json:"post_indexSort"`
-}
 
 func PostDiaryPic(c *gin.Context) {
 	//获取文件路径
 	//dir, _ := os.Getwd()
 	form, _ := c.MultipartForm()
 	files := form.File["file"]
-	var back Back
-	for index, file := range files {
 
-		back.Url = file.Filename
-		back.PostIndexSort = index
+	var name string
+	for _, file := range files {
+
+		ext := strings.ToLower(path.Ext(file.Filename))
+		name = utils.RandStringRunes(10) + ext
+
 		// 上传文件至指定目录
-		if err := c.SaveUploadedFile(file, "./static/"+file.Filename); err != nil {
-			c.IndentedJSON(200, gin.H{
+		if err := c.SaveUploadedFile(file, "./static/"+name); err != nil {
+			c.JSON(200, gin.H{
 				"code": 404,
 				"data": nil,
 				"msg":  "上传失败",
@@ -30,9 +30,11 @@ func PostDiaryPic(c *gin.Context) {
 			return
 		}
 
-		c.IndentedJSON(200, gin.H{
+		c.JSON(200, gin.H{
 			"code": 0,
-			"data": back,
+			"data": gin.H{
+				"imagName":name,
+			},
 			"msg":  "ok",
 		})
 	}

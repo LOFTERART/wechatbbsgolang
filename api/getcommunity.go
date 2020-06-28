@@ -12,6 +12,6 @@ func Getcommunity(c *gin.Context)  {
 
 	var comunity home.HomeCommunityService
 	res:=comunity.GetCommunity()
-	c.IndentedJSON(200,&res)
+	c.JSON(200,&res)
 
 }

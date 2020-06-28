@@ -2,9 +2,22 @@ package utils
 
 import (
 	"github.com/astaxie/beego/orm"
+	"math/rand"
 	"strconv"
 	"time"
 )
+
+
+func RandStringRunes(ln int) string {
+	letters := []rune("1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	b := make([]rune, ln)
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	for i := range b {
+		b[i] = letters[r.Intn(len(letters))]
+	}
+
+	return string(b)
+}
 
 func String2Int(val string) int {
 

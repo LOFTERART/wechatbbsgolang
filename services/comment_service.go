@@ -42,9 +42,14 @@ func (item *Comment)DelComment() serializer.Response{
 //查ALL Comment
 func (item *Comment)GetALLComment() serializer.Response{
 
+ var infos []*models.Comment
+
+ models.DB.Where("diary_id=?",item.DiaryID).Find(&infos)
+
+
  return serializer.Response{
   Code: 0,
-  Data:  nil,
+  Data:  serializer.BuildCommentSSerializers(infos),
   Msg:   "查询ALL成功",
  }
 }

@@ -47,6 +47,7 @@ func InitRouter() *gin.Engine {
 	comment := router.Group("comment")
 	{
 		comment.POST("/creatediarycomment",api.CreateComment)
+		comment.POST("/getdiarycomment",api.GetComment)
 	}
 
 	return router

@@ -44,7 +44,9 @@ func (item *Comment)GetALLComment() serializer.Response{
 
  var infos []*models.Comment
 
- models.DB.Where("diary_id=?",item.DiaryID).Find(&infos)
+ models.DB.
+  Preload("User").
+  Where("diary_id=?",item.DiaryID).Find(&infos)
 
 
  return serializer.Response{

@@ -1,6 +1,8 @@
 package serializer
 
-import "QUZHIYOU/models"
+import (
+	"QUZHIYOU/models"
+)
 
 type Comment struct {
 	ID uint `json:"id"`
@@ -10,6 +12,7 @@ type Comment struct {
 	StepNum uint `json:"step_num"`
 	DiaryID uint `json:"diary_id"`
 	UserID uint `json:"user_id"`
+	User *User `json:"user"`
 }
 
 func BuildCommentSerializer(item models.Comment) *Comment {
@@ -21,6 +24,7 @@ func BuildCommentSerializer(item models.Comment) *Comment {
 		StepNum: item.StepNum,
 		DiaryID: item.DiaryID,
 		UserID:  item.UserID,
+		User:BuildUserFormat(&(item.User)),
 	}
 
 }

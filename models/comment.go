@@ -10,4 +10,5 @@ type Comment struct {
 	StepNum uint `gorm:"default: 0 "`//踩
 	DiaryID uint //关联的那条日志动态
 	UserID uint //哪个用户发的
+	User User
 }

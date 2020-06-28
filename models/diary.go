@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"github.com/chenhg5/collection"
 	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
@@ -52,18 +53,18 @@ func (Diary *Diary) FormatPhotos(photo string) (photos []string) {
 //判断用户是否点赞 根据用户id是否在这个日记中
 func (Diary *Diary) UserIsLike(id string) bool {
 
-
-	strslice:=strings.Split(Diary.UserLikeId, ",")
+	strSlice:=strings.Split(Diary.UserLikeId, ",")
 	var array []string
 
-	for _, v := range strslice {
+	for _, v := range strSlice {
 		array = append(array, v)
 	}
 
 	b := collection.Collect(array).Contains(id)
 
+	fmt.Println(b,"--------fffffffffbbbbb------")
+
 	return b
-	//return true
 
 }
 

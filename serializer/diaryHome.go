@@ -2,7 +2,6 @@ package serializer
 
 import (
 	"QUZHIYOU/models"
-	"github.com/lib/pq"
 )
 
 //社区动态 序列化
@@ -28,13 +27,13 @@ type Diary struct {
 	SubTopicId           uint                     `json:"tagId"`
 	CommunityId          uint                     `json:"communityId"`
 
-	UserLikes pq.Int64Array `json:"user_likes"`
+	UserLikes string `json:"user_likes"`
 	UserId    uint          `json:"user_id"`
 
 	UserInfo *User  `json:"user_info"`   //用户信息表
 }
 
-func BuildDiary(item models.Diary, userId int64) Diary {
+func BuildDiary(item models.Diary, userId string) Diary {
 	return Diary{
 		ID:                   item.ID,
 		Name:                 item.UserInfo.NickName,
@@ -63,7 +62,7 @@ func BuildDiary(item models.Diary, userId int64) Diary {
 
 }
 
-func BuildDiarys(items []*models.Diary, userId int64) (diarys []*Diary) {
+func BuildDiarys(items []*models.Diary, userId string) (diarys []*Diary) {
 
 	for _, item := range items {
 		diary := BuildDiary(*item, userId)

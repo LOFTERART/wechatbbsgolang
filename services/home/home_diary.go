@@ -14,7 +14,7 @@ type ListDiaryService struct {
 	UserId      int `form:"user_id" json:"user_id"` //传递userid 进入用户胡中心
 }
 
-func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
+func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 
 	var diarys []*models.Diary
 

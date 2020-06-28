@@ -1,8 +1,10 @@
 package models
 
 import (
+	"github.com/chenhg5/collection"
 	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
+	"strings"
 )
 
 //社区动态
@@ -48,18 +50,20 @@ func (Diary *Diary) FormatPhotos(photo string) (photos []string) {
 }
 
 //判断用户是否点赞 根据用户id是否在这个日记中
-func (Diary *Diary) UserIsLike(id int64) bool {
+func (Diary *Diary) UserIsLike(id string) bool {
 
-	//var array []int64
-	//
-	//for _, v := range Diary.UserLikeId {
-	//	array = append(array, v)
-	//}
-	//
-	//b := collection.Collect(array).Contains(id)
-	//
-	//return b
-	return true
+
+	strslice:=strings.Split(Diary.UserLikeId, ",")
+	var array []string
+
+	for _, v := range strslice {
+		array = append(array, v)
+	}
+
+	b := collection.Collect(array).Contains(id)
+
+	return b
+	//return true
 
 }
 

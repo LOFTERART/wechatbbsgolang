@@ -23,6 +23,8 @@ type User struct {
 	AuthenticationName string //认证的称号 教师 医生
 	IsShowAuthentication bool //是否显示认证
 
+	Job string
+
 	Comment []Comment
 
 }

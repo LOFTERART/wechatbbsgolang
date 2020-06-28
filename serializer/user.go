@@ -16,6 +16,13 @@ type User struct {
 	City      string `json:"city"`
 	Country   string `json:"country"`
 	Gender    int    `json:"gender"`
+
+	Auth        string `json:"auth"`//职业认证
+	Specialist  bool   `json:"specialist"`//是否认证
+	Authentication bool `json:"authentication"`//认证
+	AuthenticationName string `json:"authentication_name"`//认证的称号 教师 医生
+	IsShowAuthentication bool `json:"is_show_authentication"`//是否显示认证
+	Job string `json:"job"`
 }
 
 func BuildUser(user *models.User) *User {
@@ -75,5 +82,12 @@ func BuildUserFormat(item *models.User) *User {
 		City:      item.City,
 		Country:   item.Country,
 		Gender:    item.Gender,
+		Auth:item.Auth,
+		Specialist: item.Specialist,
+		Authentication: item.Authentication,
+		AuthenticationName: item.AuthenticationName,
+		IsShowAuthentication: item.IsShowAuthentication,
+		Job: item.Job,
+
 	}
 }

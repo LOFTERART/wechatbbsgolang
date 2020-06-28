@@ -23,7 +23,7 @@ func (service *DiaryLikeService) LikeDiary(userid []string) serializer.Response 
 
 	models.DB.First(&diary)
 	UserLikeArrayId := strings.Split(diary.UserLikeId, ",")
-
+	fmt.Println(UserLikeArrayId,"------UserLikeArrayId-------",diary.UserLikeId)
 	if service.Type {
 		for k, v := range UserLikeArrayId {
 			if userid[0] == v {
@@ -32,7 +32,9 @@ func (service *DiaryLikeService) LikeDiary(userid []string) serializer.Response 
 			}
 		}
 
-		fmt.Println(UserLikeArrayId,"------UserLikeArrayId-------")
+		str:=strings.Join(UserLikeArrayId, ";")
+
+		diary.UserLikeId=str
 
 		models.DB.Model(&diary).
 			Updates(map[string]interface{}{"like": diary.Like - 1, "user_like_id": diary.UserLikeId})

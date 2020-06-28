@@ -13,9 +13,7 @@ func (service *DiaryInfoService) GetDiaryInfo(userId uint) serializer.Response {
 
 	var DiaryInfo models.Diary
 
-	models.DB.
-		Where("id=?", uint(service.Id)).
-		First(&DiaryInfo)
+	models.DB.Where("id=?", uint(service.Id)).First(&DiaryInfo)
 
 	//用户信息  用来装在用户的图片
 	var users []*models.User

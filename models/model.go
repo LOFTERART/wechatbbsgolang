@@ -69,6 +69,7 @@ func Initialized() {
         &TbWxtoken{},
         &Ad{},
         &Diary{},
+        &Comment{},
 		)
 
 

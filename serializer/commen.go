@@ -14,6 +14,7 @@ type Comment struct {
 	UserID uint `json:"user_id"`
 	User *User `json:"user"`
 	CreateAt int64 `json:"create_at"`
+	Like uint `json:"like"`
 }
 
 func BuildCommentSerializer(item models.Comment) *Comment {
@@ -27,6 +28,8 @@ func BuildCommentSerializer(item models.Comment) *Comment {
 		UserID:  item.UserID,
 		User:BuildUserFormat(&(item.User)),
 		CreateAt: item.ForMatTime(),
+		Like: item.Like,
+
 	}
 
 }

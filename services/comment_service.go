@@ -115,7 +115,7 @@ func (service *LikeDairyComment) LikeComment(userid []string) serializer.Respons
 		}
 		str := strings.Join(userid, ",")
 
-     info.UserLikeId = str
+         info.UserLikeId = str
 
 		models.DB.Model(&info).
 			Updates(map[string]interface{}{"like": info.Like + 1, "user_like_id": info.UserLikeId})

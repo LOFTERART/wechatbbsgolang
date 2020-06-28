@@ -20,18 +20,18 @@ func (service *DiaryLikeService) LikeDiary(userid pq.Int64Array) serializer.Resp
 		},
 	}
 
-	models.PG.First(&diary)
+	models.DB.First(&diary)
 
 	if service.Type {
-		for k, v := range diary.UserLikeId {
-			if userid[0] == v {
+		//for k, v := range diary.UserLikeId {
+		//	if userid[0] == v {
+		//
+		//		diary.UserLikeId = append(diary.UserLikeId[:k], diary.UserLikeId[k+1:]...)
+		//
+		//	}
+		//}
 
-				diary.UserLikeId = append(diary.UserLikeId[:k], diary.UserLikeId[k+1:]...)
-
-			}
-		}
-
-		models.PG.Model(&diary).Updates(map[string]interface{}{"like": diary.Like - 1, "user_like_id": diary.UserLikeId})
+		models.DB.Model(&diary).Updates(map[string]interface{}{"like": diary.Like - 1, "user_like_id": diary.UserLikeId})
 
 	} else {
 		//for _, v := range diary.UserLikeId {
@@ -40,8 +40,8 @@ func (service *DiaryLikeService) LikeDiary(userid pq.Int64Array) serializer.Resp
 		//	}
 		//
 		//}
-		models.PG.Model(&diary).Updates(map[string]interface{}{"like": diary.Like + 1})
-		models.PG.Exec("UPDATE diary SET user_like_id = user_like_id||?  WHERE id= ? ", userid, service.DiaryId)
+		models.DB.Model(&diary).Updates(map[string]interface{}{"like": diary.Like + 1})
+		models.DB.Exec("UPDATE diary SET user_like_id = user_like_id||?  WHERE id= ? ", userid, service.DiaryId)
 
 	}
 

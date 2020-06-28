@@ -1,7 +1,6 @@
 package models
 
 import (
-	"github.com/chenhg5/collection"
 	"github.com/disintegration/imaging"
 	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
@@ -20,11 +19,11 @@ type Diary struct {
 	View        int
 	CommentNum  int
 	Address     string
-	Photos      pq.StringArray `gorm:"type:varchar(300)[]"`
-	PhotosThumb pq.StringArray `gorm:"type:varchar(300)[]"`
+	Photos      string
+	PhotosThumb string
 	Tag         string
 	ClassifyId  uint          //属于哪个大标签
-	UserLikeId  pq.Int64Array `gorm:"type:varchar(300)[]"` //点赞人id存为数组
+	UserLikeId  string //点赞人id存为数组
 
 	//外键信息
 	UserInfo *User ` gorm:"ForeignKey:UserId" `
@@ -70,14 +69,40 @@ func (Diary *Diary) FormatPhotos(photo []string) (photos []map[string]interface{
 //判断用户是否点赞 根据用户id是否在这个日记中
 func (Diary *Diary) UserIsLike(id int64) bool {
 
-	var array []int64
+	//var array []int64
+	//
+	//for _, v := range Diary.UserLikeId {
+	//	array = append(array, v)
+	//}
+	//
+	//b := collection.Collect(array).Contains(id)
+	//
+	//return b
+	return true
 
-	for _, v := range Diary.UserLikeId {
-		array = append(array, v)
-	}
+}
 
-	b := collection.Collect(array).Contains(id)
 
-	return b
+type DiaryBACK struct {
+	gorm.Model
+	Content     string
+	Like        uint //用户点赞数
+	View        int
+	CommentNum  int
+	Address     string
+	Photos      pq.StringArray `gorm:"type:varchar(300)[]"`
+	PhotosThumb pq.StringArray `gorm:"type:varchar(300)[]"`
+	Tag         string
+	ClassifyId  uint          //属于哪个大标签
+	UserLikeId  pq.Int64Array `gorm:"type:varchar(300)[]"` //点赞人id存为数组
 
+	//外键信息
+	UserInfo *User ` gorm:"ForeignKey:UserId" `
+	UserId   uint
+
+	CommunityInfo *Communitys ` gorm:"ForeignKey:CommunityId" `
+	CommunityId   uint
+
+	SubTopicInfo *SubTopic ` gorm:"ForeignKey:SubTopicId" `
+	SubTopicId   uint
 }

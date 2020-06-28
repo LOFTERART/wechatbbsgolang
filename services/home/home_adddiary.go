@@ -24,20 +24,20 @@ func (diary *AddDiaryService) AddDiary(userId uint) serializer.Response {
 		UserId:      userId,
 		Content:     diary.Content,
 		Address:     diary.Address,
-		Photos:      diary.Photos,
-		PhotosThumb: diary.Photos,
+		//Photos:      diary.Photos,
+		//PhotosThumb: diary.Photos,
 		CommunityId: diary.CommunityId,
 		SubTopicId:  diary.SubTopicId,
 		ClassifyId:  diary.ClassifyId,
 	}
 
 	//创建话题
-	models.PG.Create(&dia)
+	models.DB.Create(&dia)
 
 	//更新tag sendNum
 	var subTopic models.SubTopic
 	subTopic.ID = diary.SubTopicId
-	models.PG.Model(&subTopic).UpdateColumn("send_num", gorm.Expr("send_num + ?", 1))
+	models.DB.Model(&subTopic).UpdateColumn("send_num", gorm.Expr("send_num + ?", 1))
 
 	return serializer.Response{
 		Code:  0,

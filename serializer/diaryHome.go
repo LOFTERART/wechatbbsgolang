@@ -48,15 +48,15 @@ func BuildDiary(item models.Diary, userId int64) Diary {
 		CommentNum:           item.CommentNum,
 		Address:              item.Address,
 		Community:            item.CommunityInfo.Name,
-		Photos:               item.FormatPhotos(item.Photos),
-		PhotosThumb:          item.FormatPhotos(item.PhotosThumb),
+		//Photos:               item.FormatPhotos(item.Photos),
+		//PhotosThumb:          item.FormatPhotos(item.PhotosThumb),
 		Tag:                  item.SubTopicInfo.Name,
 		SubTopicInfo:         BuildSubTopic(item.SubTopicInfo), //子主题info信息
 		Avatar:               item.UserInfo.AvatarUrl,
 		CreatedAt:            item.FormatCretaeTime(),
 		SubTopicId:           item.SubTopicId,
 		CommunityId:          item.CommunityId,
-		UserLikes:            item.UserLikeId,
+		//UserLikes:            item.UserLikeId,
 		UserId:               item.UserInfo.ID,
 		UserInfo:BuildUserFormat(item.UserInfo),
 	}

@@ -13,7 +13,7 @@ func (service *DiaryInfoService) GetDiaryInfo(userId uint) serializer.Response {
 
 	var DiaryInfo models.Diary
 
-	models.PG.
+	models.DB.
 		Where("id=?", uint(service.Id)).
 		First(&DiaryInfo)
 
@@ -26,7 +26,7 @@ func (service *DiaryInfoService) GetDiaryInfo(userId uint) serializer.Response {
 		ids = append(ids, uint(v))
 	}
 
-	models.PG.Where("id in (?)", ids).Find(&users)
+	models.DB.Where("id in (?)", ids).Find(&users)
 
 	res:=serializer.BuildHomeDiaryInfoUserPics(users)
 

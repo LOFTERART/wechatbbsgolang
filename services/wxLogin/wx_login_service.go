@@ -42,7 +42,7 @@ func (u *UserService) WxUserLogin() serializer.Response {
 
 	user= models.User{OpenId: res.OpenID}
 
-	if err:=models.PG.Where("open_id=?",res.OpenID).First(&user).Error;err==nil{
+	if err:=models.DB.Where("open_id=?",res.OpenID).First(&user).Error;err==nil{
 		return serializer.Response{
 			Code:0,
 			Msg:   "已存在",
@@ -50,7 +50,7 @@ func (u *UserService) WxUserLogin() serializer.Response {
 			Data:  serializer.BuildUser(&user),
 		}
 	}else {
-		models.PG.Create(&user)
+		models.DB.Create(&user)
 
 		return serializer.Response{
 			Code:0,

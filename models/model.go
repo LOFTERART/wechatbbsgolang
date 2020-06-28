@@ -58,7 +58,18 @@ func Initialized() {
 	})
 
 	DB.SingularTable(true)
-	//DB.AutoMigrate(&TbActivity{})
+	DB.AutoMigrate(&TbActivity{},
+		&TbWelfare{},
+		&TbAddress{},
+		&TbBanner{},
+		&Classify{},
+		&Communitys{},
+        &SubTopic{},
+        &User{},
+        &TbWxtoken{},
+        &Ad{},
+        &Diary{},
+		)
 
 
 	DB.DB().SetMaxIdleConns(10)

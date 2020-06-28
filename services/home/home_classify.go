@@ -13,7 +13,7 @@ func (classify *HomeClassify) GetClassify() serializer.Response {
 	var classifys []*models.Classify
 
 
-	models.PG.Preload("SubTopics").Limit(8).Find(&classifys)
+	models.DB.Preload("SubTopics").Limit(8).Find(&classifys)
 
 
 	return serializer.Response{

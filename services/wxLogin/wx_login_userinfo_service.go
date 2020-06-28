@@ -24,7 +24,7 @@ func (service *WxUserInfo) GetUserInfo(userid uint) serializer.Response {
 		},
 	}
 
-	models.PG.First(&user).
+	models.DB.First(&user).
 		Updates(map[string]interface{}{"nick_name": service.NickName, "avatar_url": service.AvatarUrl, "province": service.Province, "gender": service.Gender, "city": service.City, "country": service.Country})
 
 	return serializer.Response{

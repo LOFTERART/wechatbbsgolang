@@ -14,7 +14,7 @@ func (service *SubTopicService)GetSubTopic() serializer.Response {
 
 	var SubTopics []*models.SubTopic
 
-	models.PG.Where("classify_id=?",service.ClassifyId).Find(&SubTopics)
+	models.DB.Where("classify_id=?",service.ClassifyId).Find(&SubTopics)
 
 	return serializer.Response{
 		Code:  0,

@@ -12,7 +12,7 @@ func (service *HomeCommunityService) GetCommunity() serializer.Response {
 
 	var communitys []models.Communitys
 
-	models.PG.Find(&communitys)
+	models.DB.Find(&communitys)
 
 	l1 := serializer.BuildCommunitys(communitys)
 	return serializer.Response{

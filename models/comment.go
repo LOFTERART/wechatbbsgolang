@@ -12,3 +12,9 @@ type Comment struct {
 	UserID uint //哪个用户发的
 	User User
 }
+
+func (item *Comment)ForMatTime() int64 {
+
+	return  item.CreatedAt.UnixNano() / 1e6
+
+}

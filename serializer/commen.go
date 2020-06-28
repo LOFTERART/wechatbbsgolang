@@ -13,6 +13,7 @@ type Comment struct {
 	DiaryID uint `json:"diary_id"`
 	UserID uint `json:"user_id"`
 	User *User `json:"user"`
+	CreateAt int64 `json:"create_at"`
 }
 
 func BuildCommentSerializer(item models.Comment) *Comment {
@@ -25,6 +26,7 @@ func BuildCommentSerializer(item models.Comment) *Comment {
 		DiaryID: item.DiaryID,
 		UserID:  item.UserID,
 		User:BuildUserFormat(&(item.User)),
+		CreateAt: item.ForMatTime(),
 	}
 
 }

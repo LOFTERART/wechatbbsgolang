@@ -4,7 +4,6 @@ import (
 	"QUZHIYOU/models"
 	"QUZHIYOU/serializer"
 	"github.com/jinzhu/gorm"
-	"github.com/lib/pq"
 )
 
 type DiaryLikeService struct {
@@ -12,7 +11,7 @@ type DiaryLikeService struct {
 	Type    bool `json:"type" form:"type"`
 }
 
-func (service *DiaryLikeService) LikeDiary(userid pq.Int64Array) serializer.Response {
+func (service *DiaryLikeService) LikeDiary(userid []string) serializer.Response {
 
 	diary := models.Diary{
 		Model: gorm.Model{
@@ -31,7 +30,8 @@ func (service *DiaryLikeService) LikeDiary(userid pq.Int64Array) serializer.Resp
 		//	}
 		//}
 
-		models.DB.Model(&diary).Updates(map[string]interface{}{"like": diary.Like - 1, "user_like_id": diary.UserLikeId})
+		models.DB.Model(&diary).
+			Updates(map[string]interface{}{"like": diary.Like - 1, "user_like_id": diary.UserLikeId})
 
 	} else {
 		//for _, v := range diary.UserLikeId {

@@ -3,17 +3,15 @@ package api
 import (
 	"QUZHIYOU/services/home"
 	"github.com/gin-gonic/gin"
-	"github.com/lib/pq"
-	"strconv"
 )
 
 func PostDiaryLike(c *gin.Context) {
 
 	userId := c.Request.Header.Get("userId")
-	i, _ := strconv.Atoi(userId)
+	//i, _ := strconv.Atoi(userId)
 
-	var userids pq.Int64Array
-	userids = append(userids, int64(i))
+	var userids []string
+	userids = append(userids, userId)
 
 	var PassUserId home.DiaryLikeService
 

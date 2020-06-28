@@ -55,7 +55,7 @@ func BuildDiary(item models.Diary, userId string) Diary {
 		CreatedAt:            item.FormatCretaeTime(),
 		SubTopicId:           item.SubTopicId,
 		CommunityId:          item.CommunityId,
-		//UserLikes:            item.UserLikeId,
+		UserLikes:            item.UserLikeId,
 		UserId:               item.UserInfo.ID,
 		UserInfo:BuildUserFormat(item.UserInfo),
 	}

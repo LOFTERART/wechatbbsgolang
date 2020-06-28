@@ -14,7 +14,6 @@ type Diary struct {
 	Content     string
 	Like        uint //用户点赞数
 	View        int
-	CommentNum  int
 	Address     string
 	Photos      string
 	PhotosThumb string
@@ -31,6 +30,9 @@ type Diary struct {
 
 	SubTopicInfo *SubTopic ` gorm:"ForeignKey:SubTopicId" `
 	SubTopicId   uint
+
+
+	Comment []*Comment
 }
 
 var timeLayoutStr = "2006/01/02 15:04"

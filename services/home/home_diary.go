@@ -42,6 +42,7 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 
 		if err := models.DB.
 			Preload("UserInfo").
+			Preload("Comment").
 			Preload("CommunityInfo").
 			Preload("SubTopicInfo").
 			Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).
@@ -65,6 +66,7 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 
 		if err := models.DB.
 			Preload("UserInfo").
+			Preload("Comment").
 			Preload("CommunityInfo").
 			Preload("SubTopicInfo").
 			Where(" community_id=? AND sub_topic_id=?", service.CommunityId, service.SubTopicId).
@@ -88,6 +90,7 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 
 		if err := models.DB.
 			Preload("UserInfo").
+			Preload("Comment").
 			Preload("CommunityInfo").
 			Preload("SubTopicInfo").
 			Where(" user_id=? ", service.UserId).Order("id desc").Limit(service.Size).
@@ -112,6 +115,7 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 
 		if err := models.DB.
 			Preload("UserInfo").
+			Preload("Comment").
 			Preload("CommunityInfo").
 			Preload("SubTopicInfo").
 			Where("community_id=?", service.CommunityId).Order("id desc").

@@ -18,7 +18,6 @@ type Diary struct {
 	Content              string                   `json:"content"`
 	Like                 uint                     `json:"like"`
 	View                 int                      `json:"views"`
-	CommentNum           int                      `json:"comment"`
 	Address              string                   `json:"address"`
 	Community            string                   `json:"community"` //社区名字
 	Photos               string `json:"image_url_came"`
@@ -31,6 +30,9 @@ type Diary struct {
 	UserId    uint          `json:"user_id"`
 
 	UserInfo *User  `json:"user_info"`   //用户信息表
+
+	Comment []*Comment `json:"comment"`  //首页显示动态评论数
+	CommentNum uint `json:"comment_num"` //首页显示动态评论数
 }
 
 func BuildDiary(item models.Diary, userId string) Diary {
@@ -44,7 +46,6 @@ func BuildDiary(item models.Diary, userId string) Diary {
 		Like:                 item.Like,
 		IsLike:               item.UserIsLike(userId),
 		View:                 item.View,
-		CommentNum:           item.CommentNum,
 		Address:              item.Address,
 		Community:            item.CommunityInfo.Name,
 		Photos:               item.Photos,
@@ -58,6 +59,7 @@ func BuildDiary(item models.Diary, userId string) Diary {
 		UserLikes:            item.UserLikeId,
 		UserId:               item.UserInfo.ID,
 		UserInfo:BuildUserFormat(item.UserInfo),
+		CommentNum:uint(len(item.Comment)),
 	}
 
 }

@@ -31,7 +31,8 @@ func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
 
 	//根据前端是否传递ClassifyId 返回对应的数据
 	if service.ClassifyId > 0 {
-		if err := models.DB.Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).Model(models.Diary{}).Count(&total).Error; err != nil {
+		if err := models.DB.Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).
+			Model(models.Diary{}).Count(&total).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",
@@ -43,7 +44,8 @@ func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
 			Preload("UserInfo").
 			Preload("CommunityInfo").
 			Preload("SubTopicInfo").
-			Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+			Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).
+			Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",
@@ -52,7 +54,8 @@ func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
 		}
 
 	} else if service.SubTopicId > 0 {
-		if err := models.DB.Where(" community_id=? AND sub_topic_id=?", service.CommunityId, service.SubTopicId).Model(models.Diary{}).Count(&total).Error; err != nil {
+		if err := models.DB.Where(" community_id=? AND sub_topic_id=?", service.CommunityId, service.SubTopicId).
+			Model(models.Diary{}).Count(&total).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",
@@ -64,7 +67,8 @@ func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
 			Preload("UserInfo").
 			Preload("CommunityInfo").
 			Preload("SubTopicInfo").
-			Where(" community_id=? AND sub_topic_id=?", service.CommunityId, service.SubTopicId).Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+			Where(" community_id=? AND sub_topic_id=?", service.CommunityId, service.SubTopicId).
+			Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",
@@ -73,7 +77,8 @@ func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
 		}
 
 	} else if service.UserId > 0 {
-		if err := models.DB.Where(" user_id=? ", service.UserId).Model(models.Diary{}).Count(&total).Error; err != nil {
+		if err := models.DB.Where(" user_id=? ", service.UserId).Model(models.Diary{}).
+			Count(&total).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",
@@ -85,20 +90,19 @@ func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
 			Preload("UserInfo").
 			Preload("CommunityInfo").
 			Preload("SubTopicInfo").
-			Where(" user_id=? ", service.UserId).Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+			Where(" user_id=? ", service.UserId).Order("id desc").Limit(service.Size).
+			Offset(start).Find(&diarys).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",
 				Error: err.Error(),
 			}
 		}
-
-
-
 
 
 	} else {
-		if err := models.DB.Where("community_id=?", service.CommunityId).Model(models.Diary{}).Count(&total).Error; err != nil {
+		if err := models.DB.Where("community_id=?", service.CommunityId).Model(models.Diary{}).
+			Count(&total).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",
@@ -110,7 +114,8 @@ func (service *ListDiaryService) GetDiarys(userId int64) serializer.Response {
 			Preload("UserInfo").
 			Preload("CommunityInfo").
 			Preload("SubTopicInfo").
-			Where("community_id=?", service.CommunityId).Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+			Where("community_id=?", service.CommunityId).Order("id desc").
+			Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",

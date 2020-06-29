@@ -92,12 +92,12 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 		}
 
 		if err := models.DB.
+			Where(" user_id=? AND community_id=?", service.UserId, service.CommunityId).
 			Preload("UserInfo").
 			Preload("Comment").
 			Preload("CommunityInfo").
 			Preload("SubTopicInfo").
-			Where(" user_id=? ", service.UserId).Order("id desc").Limit(service.Size).
-			Offset(start).Find(&diarys).Error; err != nil {
+			Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,
 				Msg:   "数据库连接错误",
@@ -121,7 +121,8 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 			Preload("Comment").
 			Preload("CommunityInfo").
 			Preload("SubTopicInfo").
-			Where("community_id=?", service.CommunityId).Order("id desc").
+			Where("community_id=?", service.CommunityId).
+			Order("id desc").
 			Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
 			return serializer.Response{
 				Code:  50000,

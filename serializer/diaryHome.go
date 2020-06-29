@@ -47,17 +47,17 @@ func BuildDiary(item models.Diary, userId string) Diary {
 		IsLike:               item.UserIsLike(userId),
 		View:                 item.View,
 		Address:              item.Address,
-		Community:            item.CommunityInfo.Name,
+		//Community:            item.CommunityInfo.Name,
 		Photos:               item.Photos,
 		PhotosThumb:          item.PhotosThumb,
 		Tag:                  item.SubTopicInfo.Name,
-		SubTopicInfo:         BuildSubTopic(item.SubTopicInfo), //子主题info信息
 		Avatar:               item.UserInfo.AvatarUrl,
 		CreatedAt:            item.FormatCretaeTime(),
 		SubTopicId:           item.SubTopicId,
 		CommunityId:          item.CommunityId,
 		UserLikes:            item.UserLikeId,
 		UserId:               item.UserInfo.ID,
+		SubTopicInfo:         BuildSubTopic(item.SubTopicInfo), //子主题info信息
 		UserInfo:BuildUserFormat(item.UserInfo),
 		CommentNum:uint(len(item.Comment)),
 	}

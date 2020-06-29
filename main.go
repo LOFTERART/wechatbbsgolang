@@ -1,6 +1,7 @@
 package main
 
 import (
+	"QUZHIYOU/cache"
 	"QUZHIYOU/models"
 	"QUZHIYOU/routers"
 	"github.com/joho/godotenv"
@@ -8,7 +9,7 @@ import (
 
 func init() {
 	godotenv.Load()
-	//models.InitPG()
+	cache.Redis()
 	models.Initialized()
 }
 

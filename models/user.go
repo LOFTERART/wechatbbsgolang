@@ -23,8 +23,11 @@ type User struct {
 	AuthenticationName string //认证的称号 教师 医生
 	IsShowAuthentication bool //是否显示认证
 
-	Job string
+	Job string    //职务信息
 
-	Comment []Comment
+	Comment []Comment  //评论列表
+
+	CommunitysID uint //用户在哪个社区
+	Communitys Communitys //用户时所在社区信息
 
 }

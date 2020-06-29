@@ -23,6 +23,7 @@ type User struct {
 	AuthenticationName string `json:"authentication_name"`//认证的称号 教师 医生
 	IsShowAuthentication bool `json:"is_show_authentication"`//是否显示认证
 	Job string `json:"job"`
+	CommunityName string `json:"community_name"`
 }
 
 func BuildUser(user *models.User) *User {
@@ -88,6 +89,7 @@ func BuildUserFormat(item *models.User) *User {
 		AuthenticationName: item.AuthenticationName,
 		IsShowAuthentication: item.IsShowAuthentication,
 		Job: item.Job,
+		CommunityName:item.CommunityName,
 
 	}
 }

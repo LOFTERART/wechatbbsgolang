@@ -27,7 +27,7 @@ type User struct {
 
 	Comment []Comment  //评论列表
 
-	CommunitysID uint //用户在哪个社区
-	Communitys Communitys //用户时所在社区信息
+
+	CommunityName string //用户时所在社区信息
 
 }

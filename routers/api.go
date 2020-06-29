@@ -44,6 +44,7 @@ func InitRouter() *gin.Engine {
 		home.POST("/diaryinfo", api.GetDiaryInfo) //获取一条日记信息
 	}
 
+	//评论组
 	comment := router.Group("comment")
 	{
 		comment.POST("/creatediarycomment",api.CreateComment)

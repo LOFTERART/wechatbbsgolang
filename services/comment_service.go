@@ -9,6 +9,8 @@ import (
 
 //定义前段传递的数据字段
 type Comment struct {
+	Page        int `json:"page" `
+	Size        int `json:"size" `
 	Name    string `json:"name"`
 	DiaryID uint   `json:"diary_id"`
 	UserID  uint   `json:"user_id"`
@@ -47,9 +49,22 @@ func (item *Comment) GetALLComment() serializer.Response {
 
 	var infos []*models.Comment
 
+
+	if item.Size == 0 {
+		item.Size = 10
+	}
+	if item.Page == 0 {
+		item.Page = 1
+	}
+
+	start := (item.Page - 1) * item.Size
+
+
 	models.DB.
 		Preload("User").
-		Where("diary_id=?", item.DiaryID).Find(&infos)
+		Where("diary_id=?", item.DiaryID).
+		Limit(item.Size).Offset(start).
+		Find(&infos)
 
 	return serializer.Response{
 		Code: 0,

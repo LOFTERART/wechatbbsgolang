@@ -25,8 +25,7 @@ type Diary struct {
 	UserInfo *User ` gorm:"ForeignKey:UserId" `
 	UserId   uint
 
-	CommunityInfo *Communitys ` gorm:"ForeignKey:CommunityId" `
-	CommunityId   uint
+	CommunityId   uint //社区ID
 
 	SubTopicInfo *SubTopic ` gorm:"ForeignKey:SubTopicId" `
 	SubTopicId   uint

@@ -19,7 +19,6 @@ type Diary struct {
 	Like                 uint                     `json:"like"`
 	View                 int                      `json:"views"`
 	Address              string                   `json:"address"`
-	Community            Community                   `json:"community"` //社区名字
 	Photos               string `json:"image_url_came"`
 	PhotosThumb         string `json:"image_url_came_thumb"`
 	CreatedAt            string                   `json:"timer"`
@@ -47,7 +46,6 @@ func BuildDiary(item models.Diary, userId string) Diary {
 		IsLike:               item.UserIsLike(userId),
 		View:                 item.View,
 		Address:              item.Address,
-		Community:            BuildCommunity(*item.CommunityInfo),
 		Photos:               item.Photos,
 		PhotosThumb:          item.PhotosThumb,
 		Tag:                  item.SubTopicInfo.Name,

@@ -4,6 +4,7 @@ import (
 	"QUZHIYOU/cache"
 	"QUZHIYOU/models"
 	"QUZHIYOU/serializer"
+	"QUZHIYOU/serializer/code"
 	"github.com/jinzhu/gorm"
 	"github.com/medivhzhan/weapp/v2"
 	"os"
@@ -53,6 +54,20 @@ func (diary *AddDiaryService) AddDiary(userId uint) serializer.Response {
 		CommunityId: diary.CommunityId,
 		SubTopicId:  diary.SubTopicId,
 		ClassifyId:  diary.ClassifyId,
+	}
+
+	res, _ := weapp.MSGSecCheck(token, diary.Content)
+
+
+	if err := res.GetResponseError(); err !=nil {
+		// 处理微信返回错误信息
+		return serializer.Response{
+			Code:  code.ContentRisky,
+			Data:  nil,
+			Msg:   res.ErrMSG,
+			Error: "",
+		}
+
 	}
 
 	//创建话题

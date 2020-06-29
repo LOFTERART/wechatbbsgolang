@@ -45,7 +45,7 @@ func (item *Comment) DelComment() serializer.Response {
 }
 
 //查ALL Comment
-func (item *Comment) GetALLComment() serializer.Response {
+func (item *Comment) GetALLComment(userID string) serializer.Response {
 
 	var infos []*models.Comment
 
@@ -68,7 +68,7 @@ func (item *Comment) GetALLComment() serializer.Response {
 
 	return serializer.Response{
 		Code: 0,
-		Data: serializer.BuildCommentSSerializers(infos),
+		Data: serializer.BuildCommentSSerializers(infos,userID),
 		Msg:  "查询ALL成功",
 	}
 }

@@ -2,7 +2,6 @@ package serializer
 
 import (
 	"QUZHIYOU/models"
-	"strconv"
 )
 
 type Comment struct {
@@ -19,7 +18,7 @@ type Comment struct {
 	IsLike   bool    `json:"is_like"` //计算得出是否点赞
 }
 
-func BuildCommentSerializer(item models.Comment) *Comment {
+func BuildCommentSerializer(item models.Comment,userID string) *Comment {
 	return &Comment{
 		ID:      item.ID,
 		Name:    item.Name,
@@ -31,16 +30,16 @@ func BuildCommentSerializer(item models.Comment) *Comment {
 		User:BuildUserFormat(&(item.User)),
 		CreateAt: item.ForMatTime(),
 		Like: item.Like,
-		IsLike:item.UserIsLike(strconv.FormatUint(uint64(item.UserID),10)),
+		IsLike:item.UserIsLike(userID),  //判断当前用户是否对评论点赞
 
 	}
 
 }
 
-func BuildCommentSSerializers(item []*models.Comment) (items []*Comment) {
+func BuildCommentSSerializers(item []*models.Comment,userID string) (items []*Comment) {
 
 	for _, v := range item {
-		items = append(items, BuildCommentSerializer(*v))
+		items = append(items, BuildCommentSerializer(*v,userID))
 	}
 	return
 

@@ -19,17 +19,21 @@ func CreateComment(c *gin.Context)  {
 }
 
 func GetComment(c *gin.Context)  {
+
+	userID := c.Request.Header.Get("userId") //获取请求的USER—iD
+
 	info := service.Comment{}
 
 	if err := c.ShouldBind(&info); err != nil {
 		c.JSON(201, ErrorResponse(err))
 	} else {
-		res := info.GetALLComment()
+		res := info.GetALLComment(userID)
 		c.JSON(200, &res)
 	}
 }
 
 
+//点赞vs取消点赞
 func LikeDiaryComment(c *gin.Context) {
 
 	userId := c.Request.Header.Get("userId")

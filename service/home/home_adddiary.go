@@ -74,9 +74,12 @@ func (diary *AddDiaryService) AddDiary(userId uint) serializer.Response {
 	models.DB.Create(&dia)
 
 	//更新tag sendNum
-	var subTopic models.SubTopic
-	subTopic.ID = diary.SubTopicId
-	models.DB.Model(&subTopic).UpdateColumn("send_num", gorm.Expr("send_num + ?", 1))
+	 subTopic:=models.SubTopic{
+		 Model: gorm.Model{
+			ID: diary.SubTopicId,
+		 },
+	 }
+	models.DB.Model(&subTopic).UpdateColumn("send_num", gorm.Expr("send_num+?", 1))
 
 	return serializer.Response{
 		Code:  0,

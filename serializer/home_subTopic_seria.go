@@ -13,8 +13,8 @@ type SubTopic struct {
 	Follow     int   `json:"follow"`   //关注人数
 	ClassifyId int   `json:"classify_id"`
 	BackSubName string `json:"subName"`
-	Desc string `json:"des"`
-	DescPic string	`json:"desPic"`
+	Des string `json:"des"`
+	DesPic string	`json:"desPic"`
 	Image string `json:"image"`
 }
 
@@ -27,8 +27,8 @@ func BuildSubTopic(item *models.SubTopic) *SubTopic {
 		SendNum:    item.SendNum,
 		Follow:     item.Follow,
 		ClassifyId: item.ClassifyId,
-		Desc: item.Desc,
-		DescPic: item.DescPic,
+		Des: item.Des,
+		DesPic: item.DesPic,
 		Image:item.Image,
 		BackSubName:strconv.Itoa(item.SendNum)+"条日记"+strconv.Itoa(item.Follow)+"人关注",
 	}

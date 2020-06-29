@@ -19,8 +19,8 @@ type Diary struct {
 	Like                 uint                     `json:"like"`
 	View                 int                      `json:"views"`
 	Address              string                   `json:"address"`
-	Photos               string `json:"image_url_came"`
-	PhotosThumb         string `json:"image_url_came_thumb"`
+	Photos               []string `json:"image_url_came"`
+	PhotosThumb          []string `json:"image_url_came_thumb"`
 	CreatedAt            string                   `json:"timer"`
 	SubTopicId           uint                     `json:"tagId"`
 	CommunityId          uint                     `json:"communityId"`
@@ -32,6 +32,7 @@ type Diary struct {
 
 	Comment []*Comment `json:"comment"`  //首页显示动态评论数
 	CommentNum uint `json:"comment_num"` //首页显示动态评论数
+
 }
 
 func BuildDiary(item models.Diary, userId string) Diary {
@@ -46,8 +47,8 @@ func BuildDiary(item models.Diary, userId string) Diary {
 		IsLike:               item.UserIsLike(userId),
 		View:                 item.View,
 		Address:              item.Address,
-		Photos:               item.Photos,
-		PhotosThumb:          item.PhotosThumb,
+		Photos:               item.FormatPhotos(),
+		PhotosThumb:          item.FormatPhotosThumb(),
 		Tag:                  item.SubTopicInfo.Name,
 		Avatar:               item.UserInfo.AvatarUrl,
 		CreatedAt:            item.FormatCretaeTime(),

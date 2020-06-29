@@ -4,6 +4,7 @@ import (
 	"github.com/chenhg5/collection"
 	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
+	"os"
 	"strings"
 )
 
@@ -43,11 +44,25 @@ func (Diary *Diary) FormatCretaeTime() string {
 }
 
 //格式化photos
-func (Diary *Diary) FormatPhotos(photo string) (photos []string) {
+func (Info *Diary) FormatPhotos() (photos []string) {
 
-	photos=append(photos, photo)
-	return photos
+	photoArray:=strings.Split(Info.Photos,"￥")
 
+	for _,v:=range photoArray{
+		photos=append(photos, os.Getenv("IMGADDRESS")+v)
+	}
+	return
+}
+
+//格式化photosthumb
+func (Info *Diary) FormatPhotosThumb() (photos []string) {
+
+	photoArray:=strings.Split(Info.PhotosThumb,"￥")
+
+	for _,v:=range photoArray{
+		photos=append(photos, os.Getenv("IMGADDRESS")+v)
+	}
+	return
 }
 
 //判断用户是否点赞 根据用户id是否在这个日记中

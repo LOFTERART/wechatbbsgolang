@@ -1,9 +1,13 @@
 package home
 
 import (
+	"QUZHIYOU/cache"
 	"QUZHIYOU/models"
 	"QUZHIYOU/serializer"
 	"github.com/jinzhu/gorm"
+	"github.com/medivhzhan/weapp/v2"
+	"os"
+	"time"
 )
 
 type AddDiaryService struct {
@@ -19,6 +23,26 @@ type AddDiaryService struct {
 }
 
 func (diary *AddDiaryService) AddDiary(userId uint) serializer.Response {
+
+
+	token, _ := cache.RedisClient.Get(cache.WeChatAccessToken).Result()
+	if len(token)<=0{
+
+		res, err := weapp.GetAccessToken(os.Getenv("WXAPP_ID"), os.Getenv("WXSECRET"))
+		if err != nil {
+			// 处理一般错误信息
+
+		}
+
+		if err := res.GetResponseError(); err != nil {
+			// 处理微信返回错误信息
+		}
+
+		// 存储微信接口凭证到redis
+		cache.RedisClient.Set(cache.WeChatAccessToken, res.AccessToken, 1*time.Hour)
+		token, _ = cache.RedisClient.Get(cache.WeChatAccessToken).Result()
+	}
+
 
 	dia := models.Diary{
 		UserId:      userId,

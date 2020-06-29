@@ -104,28 +104,56 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 
 
 	} else {
-		if err := models.DB.Where("community_id=?", service.CommunityId).Model(models.Diary{}).
-			Count(&total).Error; err != nil {
-			return serializer.Response{
-				Code:  50000,
-				Msg:   "数据库连接错误",
-				Error: err.Error(),
+
+		if service.CommunityId==99999{
+
+			if err := models.DB.Model(models.Diary{}).
+				Count(&total).Error; err != nil {
+				return serializer.Response{
+					Code:  50000,
+					Msg:   "数据库连接错误",
+					Error: err.Error(),
+				}
+			}
+
+			if err := models.DB.
+				Preload("UserInfo").
+				Preload("Comment").
+				Preload("SubTopicInfo").
+				Order("id desc").
+				Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+				return serializer.Response{
+					Code:  50000,
+					Msg:   "数据库连接错误",
+					Error: err.Error(),
+				}
+			}
+		}else {
+			if err := models.DB.Where("community_id=?", service.CommunityId).Model(models.Diary{}).
+				Count(&total).Error; err != nil {
+				return serializer.Response{
+					Code:  50000,
+					Msg:   "数据库连接错误",
+					Error: err.Error(),
+				}
+			}
+
+			if err := models.DB.
+				Preload("UserInfo").
+				Preload("Comment").
+				Preload("SubTopicInfo").
+				Where("community_id=?", service.CommunityId).
+				Order("id desc").
+				Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+				return serializer.Response{
+					Code:  50000,
+					Msg:   "数据库连接错误",
+					Error: err.Error(),
+				}
 			}
 		}
 
-		if err := models.DB.
-			Preload("UserInfo").
-			Preload("Comment").
-			Preload("SubTopicInfo").
-			Where("community_id=?", service.CommunityId).
-			Order("id desc").
-			Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
-			return serializer.Response{
-				Code:  50000,
-				Msg:   "数据库连接错误",
-				Error: err.Error(),
-			}
-		}
+
 	}
 
 	return serializer.BuildListResponse(serializer.BuildDiarys(diarys, userId), uint(total))

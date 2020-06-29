@@ -31,7 +31,8 @@ func (service *DiaryInfoService) GetDiaryInfo(userId uint) serializer.Response {
 
 	models.DB.Where("id in (?)", ids).Find(&users)
 
-	res:=serializer.BuildHomeDiaryInfoUserPics(users)
+	//res:=serializer.BuildHomeDiaryInfoUserPics(users)
+	res:=serializer.BuildUserSFormat(users)
 
 
 	return serializer.Response{

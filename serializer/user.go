@@ -91,3 +91,11 @@ func BuildUserFormat(item *models.User) *User {
 
 	}
 }
+
+func BuildUserSFormat(item []*models.User) (items []*User) {
+
+	for _,v:=range item{
+		items=append(items, BuildUserFormat(v))
+	}
+	return
+}

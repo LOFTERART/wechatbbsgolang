@@ -29,6 +29,9 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 
 	start := (service.Page - 1) * service.Size
 
+	//转换传递用户ID  str=>int
+	//userIDint,_:=strconv.Atoi(userId)
+
 	//根据前端是否传递ClassifyId 返回对应的数据
 	if service.ClassifyId > 0 {
 		if err := models.DB.Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).

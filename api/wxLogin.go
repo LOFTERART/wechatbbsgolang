@@ -1,7 +1,7 @@
 package api
 
 import (
-	"QUZHIYOU/services/wxLogin"
+	"QUZHIYOU/service/wxLogin"
 	"github.com/gin-gonic/gin"
 )
 

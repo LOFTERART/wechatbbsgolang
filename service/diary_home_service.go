@@ -1,4 +1,4 @@
-package services
+package service
 
 type DiaryHomeService struct {
 	Page int `json:"page"binding:"required"`

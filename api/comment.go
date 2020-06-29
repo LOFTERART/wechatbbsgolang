@@ -1,7 +1,7 @@
 package api
 
 import (
-	service "QUZHIYOU/services"
+	service "QUZHIYOU/service"
 	"github.com/gin-gonic/gin"
 )
 

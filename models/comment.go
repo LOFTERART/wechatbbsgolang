@@ -1,6 +1,10 @@
 package models
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/chenhg5/collection"
+	"github.com/jinzhu/gorm"
+	"strings"
+)
 
 type Comment struct {
 	gorm.Model
@@ -16,8 +20,27 @@ type Comment struct {
 	User User
 }
 
+//格式化时间戳
 func (item *Comment)ForMatTime() int64 {
 
 	return  item.CreatedAt.UnixNano() / 1e6
+
+}
+
+
+
+//判断用户是否点赞 根据用户id是否在这个日记中
+func (info *Comment) UserIsLike(id string) bool {
+
+	strSlice:=strings.Split(info.UserLikeId, ",")
+	var array []string
+
+	for _, v := range strSlice {
+		array = append(array, v)
+	}
+
+	b := collection.Collect(array).Contains(id)
+
+	return b
 
 }

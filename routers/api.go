@@ -41,6 +41,8 @@ func InitRouter() *gin.Engine {
 		home.GET("/getsubtopic", api.Getsubtopic)
 		home.POST("/likediary", api.PostDiaryLike)
 		home.POST("/diaryinfo", api.GetDiaryInfo) //获取一条日记信息
+	//	关注用户
+		home.POST("/followUsers", api.FollowUser)
 	}
 
 	//评论组

@@ -48,9 +48,6 @@ func (service *DiaryLikeService) LikeDiary(userid []string) serializer.Response 
 
 		models.DB.Model(&diary).
 			Updates(map[string]interface{}{"like": diary.Like + 1, "user_like_id": diary.UserLikeId})
-		//models.DB.Model(&diary).Updates(map[string]interface{}{"like": diary.Like + 1})
-		//models.DB.Exec("UPDATE diary SET user_like_id = user_like_id||?  WHERE id= ? ", userid, service.DiaryId)
-
 	}
 
 	return serializer.Response{

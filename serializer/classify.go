@@ -4,11 +4,11 @@ import "QUZHIYOU/models"
 
 type Classify struct {
 	ID   int64 `json:"id"`
-	Name string `json:"name"`
-	Image string `json:"image"`
-	Type string `json:"type"`
-	Des string `json:"des"`
-	DesPic string `json:"desPic"`
+	Name string `json:"name",omitempty`
+	Image string `json:"image",omitempty`
+	Type string `json:"type",omitempty`
+	Des string `json:"des,omitempty"`
+	DesPic string `json:"desPic,omitempty"`
 	SubTops []*SubTopic `json:"subTops"`
 }
 

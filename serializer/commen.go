@@ -6,16 +6,16 @@ import (
 
 type Comment struct {
 	ID uint `json:"id"`
-	Name string`json:"name"`
-	Report uint  `json:"report"`
-	TopNum uint `json:"top_num"`
-	StepNum uint `json:"step_num"`
-	DiaryID uint `json:"diary_id"`
-	UserID uint `json:"user_id"`
-	User *User `json:"user"`
-	CreateAt int64 `json:"create_at"`
-	Like uint `json:"like"`  //点赞数
-	IsLike   bool    `json:"is_like"` //计算得出是否点赞
+	Name string`json:"name,omitempty"`
+	Report uint  `json:"report,omitempty"`
+	TopNum uint `json:"top_num,omitempty"`
+	StepNum uint `json:"step_num,omitempty"`
+	DiaryID uint `json:"diary_id,omitempty"`
+	UserID uint `json:"user_id,omitempty"`
+	User *User `json:"user,omitempty"`
+	CreateAt int64 `json:"create_at,omitempty"`
+	Like uint `json:"like,omitempty"`  //点赞数
+	IsLike   bool    `json:"is_like,omitempty"` //计算得出是否点赞
 }
 
 func BuildCommentSerializer(item models.Comment,userID string) *Comment {

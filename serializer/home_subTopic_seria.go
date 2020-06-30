@@ -7,15 +7,15 @@ import (
 
 type SubTopic struct {
 	Id         uint   `json:"id"`
-	Name       string `json:"name"`
-	SubName    string `json:"sub_name"`
-	SendNum    int   `json:"send_num"` //发送帖子数
-	Follow     int   `json:"follow"`   //关注人数
-	ClassifyId int   `json:"classify_id"`
-	BackSubName string `json:"subName"`
-	Des string `json:"des"`
-	DesPic string	`json:"desPic"`
-	Image string `json:"image"`
+	Name       string `json:"name,omitempty"`
+	SubName    string `json:"sub_name,omitempty"`
+	SendNum    int   `json:"send_num,omitempty"` //发送帖子数
+	Follow     int   `json:"follow,omitempty"`   //关注人数
+	ClassifyId int   `json:"classify_id,omitempty"`
+	BackSubName string `json:"subName,omitempty"`
+	Des string `json:"des,omitempty"`
+	DesPic string	`json:"desPic,omitempty"`
+	Image string `json:"image,omitempty"`
 }
 
 // Build  序列化

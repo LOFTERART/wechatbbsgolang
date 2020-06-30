@@ -9,21 +9,21 @@ import (
 
 type User struct {
 	Id    uint   `  json:"userId" `
-	Token string `json:"token"`
-	NickName  string `json:"nick_name"`
-	AvatarUrl string `json:"avatar_url"`
-	Province  string `json:"province"`
-	City      string `json:"city"`
-	Country   string `json:"country"`
-	Gender    int    `json:"gender"`
+	Token string `json:"token,omitempty"`
+	NickName  string `json:"nick_name,omitempty"`
+	AvatarUrl string `json:"avatar_url,omitempty"`
+	Province  string `json:"province,omitempty"`
+	City      string `json:"city,omitempty"`
+	Country   string `json:"country,omitempty"`
+	Gender    int    `json:"gender,omitempty"`
 
-	Auth        string `json:"auth"`//职业认证
-	Specialist  bool   `json:"specialist"`//是否认证
-	Authentication bool `json:"authentication"`//认证
-	AuthenticationName string `json:"authentication_name"`//认证的称号 教师 医生
-	IsShowAuthentication bool `json:"is_show_authentication"`//是否显示认证
-	Job string `json:"job"`
-	CommunityName string `json:"community_name"`
+	Auth        string `json:"auth,omitempty"`//职业认证
+	Specialist  bool   `json:"specialist,omitempty"`//是否认证
+	Authentication bool `json:"authentication,omitempty"`//认证
+	AuthenticationName string `json:"authentication_name,omitempty"`//认证的称号 教师 医生
+	IsShowAuthentication bool `json:"is_show_authentication,omitempty"`//是否显示认证
+	Job string `json:"job,omitempty"`
+	CommunityName string `json:"community_name,omitempty"`
 }
 
 func BuildUser(user *models.User) *User {

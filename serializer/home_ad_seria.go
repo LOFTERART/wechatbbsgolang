@@ -4,11 +4,11 @@ import "QUZHIYOU/models"
 
 type Ad struct {
 	Id uint `json:"id"`
-	Name string `json:"name"`
-	Type string `json:"type"`
-	Link string `json:"link"`
-	IsShelves bool `json:"is_shelves"`
-	Image string `json:"image"`
+	Name string `json:"name,omitempty"`
+	Type string `json:"type,omitempty"`
+	Link string `json:"link,omitempty"`
+	IsShelves bool `json:"is_shelves,omitempty"`
+	Image string `json:"image,omitempty"`
 }
 
 func BuildAdSerializer(ad models.Ad)  *Ad{

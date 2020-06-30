@@ -7,31 +7,31 @@ import (
 //社区动态 序列化
 type Diary struct {
 	ID                   uint                     `json:"id"`
-	Name                 string                   `json:"name"`
-	IsLike               bool                     `json:"is_like"` //计算得出是否点赞
-	Avatar               string                   `json:"avatar"`
-	Authentication       bool                     `json:"authentication"`         //认证
-	AuthenticationName   string                   `json:"authentication_name"`    //认证的称号 教师 医生
-	IsShowAuthentication bool                     `json:"is_show_authentication"` //是否显示认证
-	Tag                  string                   `json:"tag"`
-	SubTopicInfo         *SubTopic                `json:"sub_topic_info"`
-	Content              string                   `json:"content"`
-	Like                 uint                     `json:"like"`
-	View                 int                      `json:"views"`
-	Address              string                   `json:"address"`
-	Photos               []string `json:"image_url_came"`
-	PhotosThumb          []string `json:"image_url_came_thumb"`
-	CreatedAt            string                   `json:"timer"`
-	SubTopicId           uint                     `json:"tagId"`
-	CommunityId          uint                     `json:"communityId"`
+	Name                 string                   `json:"name,omitempty"`
+	IsLike               bool                     `json:"is_like,omitempty"` //计算得出是否点赞
+	Avatar               string                   `json:"avatar,omitempty"`
+	Authentication       bool                     `json:"authentication,omitempty"`         //认证
+	AuthenticationName   string                   `json:"authentication_name,omitempty"`    //认证的称号 教师 医生
+	IsShowAuthentication bool                     `json:"is_show_authentication,omitempty"` //是否显示认证
+	Tag                  string                   `json:"tag,omitempty"`
+	SubTopicInfo         *SubTopic                `json:"sub_topic_info,omitempty"`
+	Content              string                   `json:"content,omitempty"`
+	Like                 uint                     `json:"like,omitempty"`
+	View                 int                      `json:"views,omitempty"`
+	Address              string                   `json:"address,omitempty"`
+	Photos               []string `json:"image_url_came,omitempty"`
+	PhotosThumb          []string `json:"image_url_came_thumb,omitempty"`
+	CreatedAt            string                   `json:"timer,omitempty"`
+	SubTopicId           uint                     `json:"tagId,omitempty"`
+	CommunityId          uint                     `json:"communityId,omitempty"`
 
-	UserLikes string `json:"user_likes"`
-	UserId    uint          `json:"user_id"`
+	UserLikes string `json:"user_likes,omitempty"`
+	UserId    uint          `json:"user_id,omitempty"`
 
-	UserInfo *User  `json:"user_info"`   //用户信息表
+	UserInfo *User  `json:"user_info,omitempty"`   //用户信息表
 
-	Comment []*Comment `json:"comment"`  //首页显示动态评论数
-	CommentNum uint `json:"comment_num"` //首页显示动态评论数
+	Comment []*Comment `json:"comment,omitempty"`  //首页显示动态评论数
+	CommentNum uint `json:"comment_num,omitempty"` //首页显示动态评论数
 
 }
 

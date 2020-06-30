@@ -28,107 +28,69 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 
 	start := (service.Page - 1) * service.Size
 
-	//根据前端是否传递ClassifyId 返回对应的数据
+	//根据前端是否传递king 分类ID  ClassifyId 返回对应的数据
 	if service.ClassifyId > 0 {
 
 		if service.CommunityId == 99999 {
-
-			if err := models.DB.
+			models.DB.
 				Preload("UserInfo").
 				Preload("Comment").
 				Preload("SubTopicInfo").
 				Where("classify_id=? ", service.ClassifyId).
-				Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
-				return serializer.Response{
-					Code:  50000,
-					Msg:   "数据库连接错误",
-					Error: err.Error(),
-				}
-			}
+				Order("id desc").Limit(service.Size).Offset(start).Find(&diarys)
 		} else {
-
-
-			if err := models.DB.
+			models.DB.
 				Preload("UserInfo").
 				Preload("Comment").
 				Preload("SubTopicInfo").
 				Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).
-				Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
-				return serializer.Response{
-					Code:  50000,
-					Msg:   "数据库连接错误",
-					Error: err.Error(),
-				}
-			}
+				Order("id desc").Limit(service.Size).Offset(start).Find(&diarys)
 		}
 
 	} else if service.SubTopicId > 0 {
-
-
-		if err := models.DB.
+		//根据前端是否传递king下面对应的子主题 返回对应的数据
+		    models.DB.
 			Preload("UserInfo").
 			Preload("Comment").
 			Preload("SubTopicInfo").
 			Where(" community_id=? AND sub_topic_id=?", service.CommunityId, service.SubTopicId).
-			Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
-			return serializer.Response{
-				Code:  50000,
-				Msg:   "数据库连接错误",
-				Error: err.Error(),
-			}
-		}
+			Order("id desc").
+			Limit(service.Size).
+			Offset(start).
+			Find(&diarys)
 
 	} else if service.UserId > 0 {
-
-		if err := models.DB.
+       //个人中心的对应动态
+		models.DB.
 			Where(" user_id=?", service.UserId).
 			Preload("UserInfo").
 			Preload("Comment").
 			Preload("SubTopicInfo").
-			Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
-			return serializer.Response{
-				Code:  50000,
-				Msg:   "数据库连接错误",
-				Error: err.Error(),
-			}
-		}
+			Order("id desc").Limit(service.Size).Offset(start).Find(&diarys)
 
 	} else {
-
+        //寻找社区对应的动态
 		if service.CommunityId == 99999 {
 
-			if err := models.DB.
+			models.DB.
 				Preload("UserInfo").
 				Preload("Comment").
 				Preload("SubTopicInfo").
 				Order("id desc").
-				Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
-				return serializer.Response{
-					Code:  50000,
-					Msg:   "数据库连接错误",
-					Error: err.Error(),
-				}
-			}
+				Limit(service.Size).Offset(start).Find(&diarys)
+
 		} else {
 
-			if err := models.DB.
+			    models.DB.
 				Preload("UserInfo").
 				Preload("Comment").
 				Preload("SubTopicInfo").
 				Where("community_id=?", service.CommunityId).
 				Order("id desc").
-				Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
-				return serializer.Response{
-					Code:  50000,
-					Msg:   "数据库连接错误",
-					Error: err.Error(),
-				}
-			}
+				Limit(service.Size).Offset(start).Find(&diarys)
 		}
 
 	}
-
-	//return serializer.BuildListResponse(serializer.BuildDiarys(diarys, userId), uint(total))
 
 	return serializer.Response{
 		Code:  0,

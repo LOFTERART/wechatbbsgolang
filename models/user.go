@@ -1,6 +1,10 @@
 package models
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/chenhg5/collection"
+	"github.com/jinzhu/gorm"
+	"strings"
+)
 
 //用户
 type User struct {
@@ -31,5 +35,22 @@ type User struct {
 	Comment []Comment //评论列表
 
 	CommunityName string //用户时所在社区信息
+
+}
+
+
+//判断用户是否点赞 根据用户id是否在这个日记中
+func (info *User) UserIsLike(id string) bool {
+
+	strSlice := strings.Split(info.Follow, ",")
+	var array []string
+
+	for _, v := range strSlice {
+		array = append(array, v)
+	}
+
+	b := collection.Collect(array).Contains(id)
+
+	return b
 
 }

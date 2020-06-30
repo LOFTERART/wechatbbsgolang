@@ -33,27 +33,27 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 
 		if service.CommunityId == 99999 {
 			models.DB.
+				Where("classify_id=? ", service.ClassifyId).
 				Preload("UserInfo").
 				Preload("Comment").
 				Preload("SubTopicInfo").
-				Where("classify_id=? ", service.ClassifyId).
 				Order("id desc").Limit(service.Size).Offset(start).Find(&diarys)
 		} else {
 			models.DB.
+				Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).
 				Preload("UserInfo").
 				Preload("Comment").
 				Preload("SubTopicInfo").
-				Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).
 				Order("id desc").Limit(service.Size).Offset(start).Find(&diarys)
 		}
 
 	} else if service.SubTopicId > 0 {
 		//根据前端是否传递king下面对应的子主题 返回对应的数据
 		    models.DB.
+			Where(" community_id=? AND sub_topic_id=?", service.CommunityId, service.SubTopicId).
 			Preload("UserInfo").
 			Preload("Comment").
 			Preload("SubTopicInfo").
-			Where(" community_id=? AND sub_topic_id=?", service.CommunityId, service.SubTopicId).
 			Order("id desc").
 			Limit(service.Size).
 			Offset(start).
@@ -81,10 +81,10 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 
 		} else {
 			    models.DB.
+				Where("community_id=?", service.CommunityId).
 				Preload("UserInfo").
 				Preload("Comment").
 				Preload("SubTopicInfo").
-				Where("community_id=?", service.CommunityId).
 				Order("id desc").
 				Limit(service.Size).Offset(start).Find(&diarys)
 		}

@@ -17,7 +17,7 @@ type User struct {
 	Country   string `json:"country,omitempty"`
 	Gender    int    `json:"gender,omitempty"`
 
-	IsLike               bool      `json:"is_like"`
+	IsLike               bool      `json:"isFollow"`
 
 	Auth                 string `json:"auth,omitempty"`                   //职业认证
 	Specialist           bool   `json:"specialist,omitempty"`             //是否认证

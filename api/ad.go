@@ -5,11 +5,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetAd(c *gin.Context)  {
+func GetAd(c *gin.Context) {
 
 	var ads home.AdService
 
-	res:=ads.GetAds()
-	c.JSON(200,&res)
+	res := ads.GetAds()
+	c.JSON(200, &res)
 
 }

@@ -9,8 +9,8 @@ import (
 
 //定义前段传递的数据字段
 type Comment struct {
-	Page        int `json:"page" `
-	Size        int `json:"size" `
+	Page    int    `json:"page" `
+	Size    int    `json:"size" `
 	Name    string `json:"name"`
 	DiaryID uint   `json:"diary_id"`
 	UserID  uint   `json:"user_id"`
@@ -49,7 +49,6 @@ func (item *Comment) GetALLComment(userID string) serializer.Response {
 
 	var infos []*models.Comment
 
-
 	if item.Size == 0 {
 		item.Size = 10
 	}
@@ -59,7 +58,6 @@ func (item *Comment) GetALLComment(userID string) serializer.Response {
 
 	start := (item.Page - 1) * item.Size
 
-
 	models.DB.
 		Preload("User").
 		Where("diary_id=?", item.DiaryID).
@@ -68,7 +66,7 @@ func (item *Comment) GetALLComment(userID string) serializer.Response {
 
 	return serializer.Response{
 		Code: 0,
-		Data: serializer.BuildCommentSSerializers(infos,userID),
+		Data: serializer.BuildCommentSSerializers(infos, userID),
 		Msg:  "查询ALL成功",
 	}
 }
@@ -95,7 +93,7 @@ func (item *Comment) UpdateComment() serializer.Response {
 
 type LikeDairyComment struct {
 	CommentID uint `json:"comment_id"`
-	Type    bool `json:"type"`
+	Type      bool `json:"type"`
 }
 
 func (service *LikeDairyComment) LikeComment(userid []string) serializer.Response {
@@ -117,7 +115,7 @@ func (service *LikeDairyComment) LikeComment(userid []string) serializer.Respons
 
 		str := strings.Join(UserLikeArrayId, ",")
 
-         info.UserLikeId = str
+		info.UserLikeId = str
 
 		models.DB.Model(&info).
 			Updates(map[string]interface{}{"like": info.Like - 1, "user_like_id": info.UserLikeId})
@@ -130,7 +128,7 @@ func (service *LikeDairyComment) LikeComment(userid []string) serializer.Respons
 		}
 		str := strings.Join(userid, ",")
 
-         info.UserLikeId = str
+		info.UserLikeId = str
 
 		models.DB.Model(&info).
 			Updates(map[string]interface{}{"like": info.Like + 1, "user_like_id": info.UserLikeId})

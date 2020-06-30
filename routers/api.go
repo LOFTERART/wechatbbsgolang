@@ -11,10 +11,10 @@ func InitRouter() *gin.Engine {
 	router := gin.Default()
 	router.Static("/static", "./static")
 
-	login:=router.Group("/login")
+	login := router.Group("/login")
 	{
-		login.GET("/getcode",api.WxLogin)  //获取openid
-		login.POST("/getwxuserinfo",api.WxLoginUserInfo)  //获取用户详情
+		login.GET("/getcode", api.WxLogin)                //获取openid
+		login.POST("/getwxuserinfo", api.WxLoginUserInfo) //获取用户详情
 	}
 
 	v1 := router.Group("v1")
@@ -46,9 +46,9 @@ func InitRouter() *gin.Engine {
 	//评论组
 	comment := router.Group("comment")
 	{
-		comment.POST("/creatediarycomment",api.CreateComment)
-		comment.POST("/getdiarycomment",api.GetComment)
-		comment.POST("/likediarycomment",api.LikeDiaryComment)
+		comment.POST("/creatediarycomment", api.CreateComment)
+		comment.POST("/getdiarycomment", api.GetComment)
+		comment.POST("/likediarycomment", api.LikeDiaryComment)
 	}
 
 	return router

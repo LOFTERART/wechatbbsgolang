@@ -110,7 +110,7 @@ func BuildCommunitys(item []models.Communitys) (list Lists) {
 
 	list.List = arrays
 
-	temp.Data=nil
+	temp.Data = nil
 
 	//待封装数据
 	//res := ResComs{}

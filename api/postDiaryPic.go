@@ -43,5 +43,4 @@ func PostDiaryPic(c *gin.Context) {
 		})
 	}
 
-
 }

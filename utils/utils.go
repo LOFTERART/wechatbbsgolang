@@ -7,7 +7,6 @@ import (
 	"time"
 )
 
-
 func RandStringRunes(ln int) string {
 	letters := []rune("1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 	b := make([]rune, ln)

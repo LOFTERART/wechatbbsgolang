@@ -23,18 +23,17 @@ type Diary struct {
 	Photos      string
 	PhotosThumb string
 	Tag         string
-	ClassifyId  uint          //属于哪个大标签
+	ClassifyId  uint   //属于哪个大标签
 	UserLikeId  string //点赞人id存为数组
 
 	//外键信息
 	UserInfo *User ` gorm:"ForeignKey:UserId" `
 	UserId   uint
 
-	CommunityId   uint //社区ID
+	CommunityId uint //社区ID
 
 	SubTopicInfo *SubTopic ` gorm:"ForeignKey:SubTopicId" `
 	SubTopicId   uint
-
 
 	Comment []*Comment
 }
@@ -50,10 +49,10 @@ func (Diary *Diary) FormatCretaeTime() string {
 //格式化photos
 func (Info *Diary) FormatPhotos() (photos []string) {
 
-	photoArray:=strings.Split(Info.Photos,"￥")
+	photoArray := strings.Split(Info.Photos, "￥")
 
-	for _,v:=range photoArray{
-		photos=append(photos, os.Getenv("IMGADDRESS")+v)
+	for _, v := range photoArray {
+		photos = append(photos, os.Getenv("IMGADDRESS")+v)
 	}
 	return
 }
@@ -61,9 +60,9 @@ func (Info *Diary) FormatPhotos() (photos []string) {
 //格式化photosthumb
 func (Info *Diary) FormatPhotosThumb() (photos []string) {
 	dir, _ := os.Getwd()
-	photoArray:=strings.Split(Info.PhotosThumb,"￥")
+	photoArray := strings.Split(Info.PhotosThumb, "￥")
 
-	for _,v:=range photoArray{
+	for _, v := range photoArray {
 		src, err := imaging.Open(dir + "/static/" + v)
 		if err != nil {
 			log.Fatalf("failed to open image: %v", err)
@@ -72,7 +71,7 @@ func (Info *Diary) FormatPhotosThumb() (photos []string) {
 		dst := imaging.New(400, 400, color.NRGBA{255, 255, 255, 0})
 		dst = imaging.Paste(dst, src, image.Pt(0, 0))
 		imaging.Save(dst, dir+"/static/thumb/"+v)
-		photos=append(photos, os.Getenv("IMGADDRESSTHUMB")+v)
+		photos = append(photos, os.Getenv("IMGADDRESSTHUMB")+v)
 	}
 	return
 }
@@ -80,7 +79,7 @@ func (Info *Diary) FormatPhotosThumb() (photos []string) {
 //判断用户是否点赞 根据用户id是否在这个日记中
 func (Diary *Diary) UserIsLike(id string) bool {
 
-	strSlice:=strings.Split(Diary.UserLikeId, ",")
+	strSlice := strings.Split(Diary.UserLikeId, ",")
 	var array []string
 
 	for _, v := range strSlice {
@@ -92,7 +91,6 @@ func (Diary *Diary) UserIsLike(id string) bool {
 	return b
 
 }
-
 
 type DiaryBACK struct {
 	gorm.Model

@@ -30,13 +30,10 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 
 	start := (service.Page - 1) * service.Size
 
-	//转换传递用户ID  str=>int
-	//userIDint,_:=strconv.Atoi(userId)
-
 	//根据前端是否传递ClassifyId 返回对应的数据
 	if service.ClassifyId > 0 {
 
-		if service.CommunityId==99999{
+		if service.CommunityId == 99999 {
 			fmt.Println("00000000")
 			if err := models.DB.Where("classify_id=? ", service.ClassifyId).
 				Model(models.Diary{}).Count(&total).Error; err != nil {
@@ -59,7 +56,7 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 					Error: err.Error(),
 				}
 			}
-		}else {
+		} else {
 			if err := models.DB.Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).
 				Model(models.Diary{}).Count(&total).Error; err != nil {
 				return serializer.Response{
@@ -82,8 +79,6 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 				}
 			}
 		}
-
-
 
 	} else if service.SubTopicId > 0 {
 		if err := models.DB.Where(" community_id=? AND sub_topic_id=?", service.CommunityId, service.SubTopicId).
@@ -131,10 +126,9 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 			}
 		}
 
-
 	} else {
 
-		if service.CommunityId==99999{
+		if service.CommunityId == 99999 {
 
 			if err := models.DB.Model(models.Diary{}).
 				Count(&total).Error; err != nil {
@@ -157,7 +151,7 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 					Error: err.Error(),
 				}
 			}
-		}else {
+		} else {
 			if err := models.DB.Where("community_id=?", service.CommunityId).Model(models.Diary{}).
 				Count(&total).Error; err != nil {
 				return serializer.Response{
@@ -181,7 +175,6 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 				}
 			}
 		}
-
 
 	}
 

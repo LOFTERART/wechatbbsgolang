@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func CreateComment(c *gin.Context)  {
+func CreateComment(c *gin.Context) {
 
 	info := service.Comment{}
 
@@ -18,7 +18,7 @@ func CreateComment(c *gin.Context)  {
 
 }
 
-func GetComment(c *gin.Context)  {
+func GetComment(c *gin.Context) {
 
 	userID := c.Request.Header.Get("userId") //获取请求的USER—iD
 
@@ -31,7 +31,6 @@ func GetComment(c *gin.Context)  {
 		c.JSON(200, &res)
 	}
 }
-
 
 //点赞vs取消点赞
 func LikeDiaryComment(c *gin.Context) {

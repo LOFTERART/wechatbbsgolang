@@ -29,9 +29,9 @@ func (service *DiaryLikeService) LikeDiary(userid []string) serializer.Response 
 			}
 		}
 
-		str:=strings.Join(UserLikeArrayId, ",")
+		str := strings.Join(UserLikeArrayId, ",")
 
-		diary.UserLikeId=str
+		diary.UserLikeId = str
 
 		models.DB.Model(&diary).
 			Updates(map[string]interface{}{"like": diary.Like - 1, "user_like_id": diary.UserLikeId})
@@ -42,9 +42,9 @@ func (service *DiaryLikeService) LikeDiary(userid []string) serializer.Response 
 				userid = append(userid, v)
 			}
 		}
-		str:=strings.Join(userid, ",")
+		str := strings.Join(userid, ",")
 
-		diary.UserLikeId=str
+		diary.UserLikeId = str
 
 		models.DB.Model(&diary).
 			Updates(map[string]interface{}{"like": diary.Like + 1, "user_like_id": diary.UserLikeId})

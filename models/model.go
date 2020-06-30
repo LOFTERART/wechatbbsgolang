@@ -7,7 +7,6 @@ import (
 	"os"
 )
 
-
 var DB *gorm.DB
 
 // 初始化数据库连接等mysql
@@ -30,14 +29,13 @@ func Initialized() {
 		&TbBanner{},
 		&Classify{},
 		&Communitys{},
-        &SubTopic{},
-        &User{},
-        &TbWxtoken{},
-        &Ad{},
-        &Diary{},
-        &Comment{},
-		)
-
+		&SubTopic{},
+		&User{},
+		&TbWxtoken{},
+		&Ad{},
+		&Diary{},
+		&Comment{},
+	)
 
 	DB.DB().SetMaxIdleConns(10)
 	DB.DB().SetMaxOpenConns(20000)

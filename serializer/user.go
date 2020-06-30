@@ -8,8 +8,8 @@ import (
 )
 
 type User struct {
-	Id    uint   `  json:"userId" `
-	Token string `json:"token,omitempty"`
+	Id        uint   `  json:"userId" `
+	Token     string `json:"token,omitempty"`
 	NickName  string `json:"nick_name,omitempty"`
 	AvatarUrl string `json:"avatar_url,omitempty"`
 	Province  string `json:"province,omitempty"`
@@ -17,13 +17,13 @@ type User struct {
 	Country   string `json:"country,omitempty"`
 	Gender    int    `json:"gender,omitempty"`
 
-	Auth        string `json:"auth,omitempty"`//职业认证
-	Specialist  bool   `json:"specialist,omitempty"`//是否认证
-	Authentication bool `json:"authentication,omitempty"`//认证
-	AuthenticationName string `json:"authentication_name,omitempty"`//认证的称号 教师 医生
-	IsShowAuthentication bool `json:"is_show_authentication,omitempty"`//是否显示认证
-	Job string `json:"job,omitempty"`
-	CommunityName string `json:"community_name,omitempty"`
+	Auth                 string `json:"auth,omitempty"`                   //职业认证
+	Specialist           bool   `json:"specialist,omitempty"`             //是否认证
+	Authentication       bool   `json:"authentication,omitempty"`         //认证
+	AuthenticationName   string `json:"authentication_name,omitempty"`    //认证的称号 教师 医生
+	IsShowAuthentication bool   `json:"is_show_authentication,omitempty"` //是否显示认证
+	Job                  string `json:"job,omitempty"`
+	CommunityName        string `json:"community_name,omitempty"`
 }
 
 func BuildUser(user *models.User) *User {
@@ -76,28 +76,27 @@ func BuildUser(user *models.User) *User {
 
 func BuildUserFormat(item *models.User) *User {
 	return &User{
-		Id:        item.ID,
-		NickName:  item.NickName,
-		AvatarUrl: item.AvatarUrl,
-		Province:  item.Province,
-		City:      item.City,
-		Country:   item.Country,
-		Gender:    item.Gender,
-		Auth:item.Auth,
-		Specialist: item.Specialist,
-		Authentication: item.Authentication,
-		AuthenticationName: item.AuthenticationName,
+		Id:                   item.ID,
+		NickName:             item.NickName,
+		AvatarUrl:            item.AvatarUrl,
+		Province:             item.Province,
+		City:                 item.City,
+		Country:              item.Country,
+		Gender:               item.Gender,
+		Auth:                 item.Auth,
+		Specialist:           item.Specialist,
+		Authentication:       item.Authentication,
+		AuthenticationName:   item.AuthenticationName,
 		IsShowAuthentication: item.IsShowAuthentication,
-		Job: item.Job,
-		CommunityName:item.CommunityName,
-
+		Job:                  item.Job,
+		CommunityName:        item.CommunityName,
 	}
 }
 
 func BuildUserSFormat(item []*models.User) (items []*User) {
 
-	for _,v:=range item{
-		items=append(items, BuildUserFormat(v))
+	for _, v := range item {
+		items = append(items, BuildUserFormat(v))
 	}
 	return
 }

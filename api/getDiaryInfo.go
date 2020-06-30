@@ -6,16 +6,14 @@ import (
 	"strconv"
 )
 
-func GetDiaryInfo(c *gin.Context)  {
+func GetDiaryInfo(c *gin.Context) {
 	userId := c.Request.Header.Get("userId")
 	i, _ := strconv.Atoi(userId)
 	var Diary home.DiaryInfoService
-	if err:=c.ShouldBind(&Diary);err==nil{
+	if err := c.ShouldBind(&Diary); err == nil {
 
-		Res:=Diary.GetDiaryInfo(uint(i))
-		c.JSON(200,&Res)
+		Res := Diary.GetDiaryInfo(uint(i))
+		c.JSON(200, &Res)
 	}
-
-
 
 }

@@ -4,9 +4,9 @@ import "github.com/jinzhu/gorm"
 
 type Ad struct {
 	gorm.Model
-	Name string
-	Type string
-	Link string
+	Name      string
+	Type      string
+	Link      string
 	IsShelves bool
-	Image string
+	Image     string
 }

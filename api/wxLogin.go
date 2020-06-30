@@ -12,9 +12,8 @@ func WxLogin(c *gin.Context) {
 	if err := c.ShouldBind(&code); err == nil {
 		res := code.WxUserLogin()
 		c.JSON(200, &res)
-	}else {
+	} else {
 		c.JSON(200, ErrorResponse(err))
 	}
-
 
 }

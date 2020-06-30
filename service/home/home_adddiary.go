@@ -13,21 +13,20 @@ import (
 
 type AddDiaryService struct {
 	UserId      uint
-	Content     string   `form:"content" json:"content" `
-	Address     string   `form:"address" json:"address" `
-	Community   string   `form:"community" json:"community"`
+	Content     string `form:"content" json:"content" `
+	Address     string `form:"address" json:"address" `
+	Community   string `form:"community" json:"community"`
 	Photos      string `form:"photos" json:"photos"`
 	PhotosThumb string `form:"photosthumb" json:"photosthumb"`
-	CommunityId uint     `form:"communityId" json:"communityId" `  //社区id
-	ClassifyId  uint     `form:"classifyId" json:"classifyId" `    //标签ID
-	SubTopicId  uint     `form:"sub_topic_id" json:"sub_topic_id"` //标签ID
+	CommunityId uint   `form:"communityId" json:"communityId" `  //社区id
+	ClassifyId  uint   `form:"classifyId" json:"classifyId" `    //标签ID
+	SubTopicId  uint   `form:"sub_topic_id" json:"sub_topic_id"` //标签ID
 }
 
 func (diary *AddDiaryService) AddDiary(userId uint) serializer.Response {
 
-
 	token, _ := cache.RedisClient.Get(cache.WeChatAccessToken).Result()
-	if len(token)<=0{
+	if len(token) <= 0 {
 
 		res, err := weapp.GetAccessToken(os.Getenv("WXAPP_ID"), os.Getenv("WXSECRET"))
 		if err != nil {
@@ -44,7 +43,6 @@ func (diary *AddDiaryService) AddDiary(userId uint) serializer.Response {
 		token, _ = cache.RedisClient.Get(cache.WeChatAccessToken).Result()
 	}
 
-
 	dia := models.Diary{
 		UserId:      userId,
 		Content:     diary.Content,
@@ -58,8 +56,7 @@ func (diary *AddDiaryService) AddDiary(userId uint) serializer.Response {
 
 	res, _ := weapp.MSGSecCheck(token, diary.Content)
 
-
-	if err := res.GetResponseError(); err !=nil {
+	if err := res.GetResponseError(); err != nil {
 		// 处理微信返回错误信息
 		return serializer.Response{
 			Code:  code.ContentRisky,
@@ -74,11 +71,11 @@ func (diary *AddDiaryService) AddDiary(userId uint) serializer.Response {
 	models.DB.Create(&dia)
 
 	//更新tag sendNum
-	 subTopic:=models.SubTopic{
-		 Model: gorm.Model{
+	subTopic := models.SubTopic{
+		Model: gorm.Model{
 			ID: diary.SubTopicId,
-		 },
-	 }
+		},
+	}
 	models.DB.Model(&subTopic).UpdateColumn("send_num", gorm.Expr("send_num+?", 1))
 
 	return serializer.Response{

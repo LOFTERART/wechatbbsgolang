@@ -3,12 +3,12 @@ package serializer
 import "QUZHIYOU/models"
 
 type Classify struct {
-	ID   int64 `json:"id"`
-	Name string `json:"name",omitempty`
-	Image string `json:"image",omitempty`
-	Type string `json:"type",omitempty`
-	Des string `json:"des,omitempty"`
-	DesPic string `json:"desPic,omitempty"`
+	ID      int64       `json:"id"`
+	Name    string      `json:"name",omitempty`
+	Image   string      `json:"image",omitempty`
+	Type    string      `json:"type",omitempty`
+	Des     string      `json:"des,omitempty"`
+	DesPic  string      `json:"desPic,omitempty"`
 	SubTops []*SubTopic `json:"subTops"`
 }
 
@@ -16,13 +16,13 @@ type Classify struct {
 func BuildClassify(item *models.Classify) *Classify {
 
 	return &Classify{
-		ID:   item.ID,
-		Name: item.Name,
-		Image: item.Image,
-		Type:item.Type,
-		Des:item.Des,
-		DesPic:item.DesPic,
-		SubTops:BuildSubTopics(item.SubTopics),
+		ID:      item.ID,
+		Name:    item.Name,
+		Image:   item.Image,
+		Type:    item.Type,
+		Des:     item.Des,
+		DesPic:  item.DesPic,
+		SubTops: BuildSubTopics(item.SubTopics),
 	}
 }
 

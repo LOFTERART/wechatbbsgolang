@@ -3,6 +3,7 @@ package home
 import (
 	"QUZHIYOU/models"
 	"QUZHIYOU/serializer"
+	"fmt"
 )
 
 type ListDiaryService struct {
@@ -34,27 +35,55 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 
 	//根据前端是否传递ClassifyId 返回对应的数据
 	if service.ClassifyId > 0 {
-		if err := models.DB.Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).
-			Model(models.Diary{}).Count(&total).Error; err != nil {
-			return serializer.Response{
-				Code:  50000,
-				Msg:   "数据库连接错误",
-				Error: err.Error(),
+
+		if service.CommunityId==99999{
+			fmt.Println("00000000")
+			if err := models.DB.Where("classify_id=? ", service.ClassifyId).
+				Model(models.Diary{}).Count(&total).Error; err != nil {
+				return serializer.Response{
+					Code:  50000,
+					Msg:   "数据库连接错误",
+					Error: err.Error(),
+				}
+			}
+
+			if err := models.DB.
+				Preload("UserInfo").
+				Preload("Comment").
+				Preload("SubTopicInfo").
+				Where("classify_id=? ", service.ClassifyId).
+				Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+				return serializer.Response{
+					Code:  50000,
+					Msg:   "数据库连接错误",
+					Error: err.Error(),
+				}
+			}
+		}else {
+			if err := models.DB.Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).
+				Model(models.Diary{}).Count(&total).Error; err != nil {
+				return serializer.Response{
+					Code:  50000,
+					Msg:   "数据库连接错误",
+					Error: err.Error(),
+				}
+			}
+
+			if err := models.DB.
+				Preload("UserInfo").
+				Preload("Comment").
+				Preload("SubTopicInfo").
+				Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).
+				Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+				return serializer.Response{
+					Code:  50000,
+					Msg:   "数据库连接错误",
+					Error: err.Error(),
+				}
 			}
 		}
 
-		if err := models.DB.
-			Preload("UserInfo").
-			Preload("Comment").
-			Preload("SubTopicInfo").
-			Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).
-			Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
-			return serializer.Response{
-				Code:  50000,
-				Msg:   "数据库连接错误",
-				Error: err.Error(),
-			}
-		}
+
 
 	} else if service.SubTopicId > 0 {
 		if err := models.DB.Where(" community_id=? AND sub_topic_id=?", service.CommunityId, service.SubTopicId).

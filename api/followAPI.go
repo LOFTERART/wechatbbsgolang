@@ -11,7 +11,6 @@ import (
 
 
 type FollowUsers struct {
-	MyUserId uint `json:"my_user_id"`
 	UserId uint `json:"user_id"`
 	Type    bool `json:"type" form:"type"`
 }
@@ -33,7 +32,7 @@ func (item *FollowUsers) Follow(userid []string) serializer.Response {
 
 	if item.Type {
 		for k, v := range UserLikeArrayId {
-			if userid[k] == v {
+			if userid[0] == v {
 				UserLikeArrayId = append(UserLikeArrayId[:k], UserLikeArrayId[k+1:]...)
 			}
 		}
@@ -70,12 +69,11 @@ func (item *FollowUsers) Follow(userid []string) serializer.Response {
 
 //关注某个用户 传递关注用户ID
 func FollowUser(c *gin.Context) {
-
+	userId := c.Request.Header.Get("userId")
 	var info FollowUsers
-	
 	if err := c.ShouldBind(&info); err == nil {
 		var userids []string  //关注用户id
-		userids = append(userids, info.UserId)
+		userids = append(userids, userId)
 		res := info.Follow(userids)
 		c.JSON(200, res)
 	} else {

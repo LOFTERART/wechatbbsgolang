@@ -16,7 +16,7 @@ type Diary struct {
 	Tag                  string                   `json:"tag,omitempty"`
 	SubTopicInfo         *SubTopic                `json:"sub_topic_info,omitempty"`
 	Content              string                   `json:"content,omitempty"`
-	Like                 uint                     `json:"like,omitempty"`
+	Like                 uint                     `json:"like"`
 	View                 int                      `json:"views,omitempty"`
 	Address              string                   `json:"address,omitempty"`
 	Photos               []string `json:"image_url_came,omitempty"`

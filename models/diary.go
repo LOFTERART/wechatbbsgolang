@@ -2,8 +2,12 @@ package models
 
 import (
 	"github.com/chenhg5/collection"
+	"github.com/disintegration/imaging"
 	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
+	"image"
+	"image/color"
+	"log"
 	"os"
 	"strings"
 )
@@ -56,11 +60,19 @@ func (Info *Diary) FormatPhotos() (photos []string) {
 
 //格式化photosthumb
 func (Info *Diary) FormatPhotosThumb() (photos []string) {
-
+	dir, _ := os.Getwd()
 	photoArray:=strings.Split(Info.PhotosThumb,"￥")
 
 	for _,v:=range photoArray{
-		photos=append(photos, os.Getenv("IMGADDRESS")+v)
+		src, err := imaging.Open(dir + "/static/" + v)
+		if err != nil {
+			log.Fatalf("failed to open image: %v", err)
+		}
+		src = imaging.Resize(src, 800, 800, imaging.NearestNeighbor)
+		dst := imaging.New(400, 400, color.NRGBA{255, 255, 255, 0})
+		dst = imaging.Paste(dst, src, image.Pt(0, 0))
+		imaging.Save(dst, dir+"/static/thumb/"+v)
+		photos=append(photos, os.Getenv("IMGADDRESSTHUMB")+v)
 	}
 	return
 }

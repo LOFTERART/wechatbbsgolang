@@ -49,31 +49,46 @@ func (Diary *Diary) FormatCretaeTime() string {
 //格式化photos
 func (Info *Diary) FormatPhotos() (photos []string) {
 
-	photoArray := strings.Split(Info.Photos, "￥")
+	if len(Info.Photos) <= 0 {
+		photos = []string{}
+		return
+	} else {
+		photoArray := strings.Split(Info.Photos, "￥")
 
-	for _, v := range photoArray {
-		photos = append(photos, os.Getenv("IMGADDRESS")+v)
+		for _, v := range photoArray {
+			photos = append(photos, os.Getenv("IMGADDRESS")+v)
+		}
+		return
 	}
-	return
+
 }
 
 //格式化photosthumb
 func (Info *Diary) FormatPhotosThumb() (photos []string) {
-	dir, _ := os.Getwd()
-	photoArray := strings.Split(Info.PhotosThumb, "￥")
 
-	for _, v := range photoArray {
-		src, err := imaging.Open(dir + "/static/" + v)
-		if err != nil {
-			log.Fatalf("failed to open image: %v", err)
+	if len(Info.PhotosThumb) <= 0 {
+		photos = []string{}
+		return
+	} else {
+
+		dir, _ := os.Getwd()
+		photoArray := strings.Split(Info.PhotosThumb, "￥")
+
+		for _, v := range photoArray {
+			src, err := imaging.Open(dir + "/static/" + v)
+			if err != nil {
+				log.Fatalf("failed to open image: %v", err)
+			}
+			src = imaging.Resize(src, 800, 800, imaging.NearestNeighbor)
+			dst := imaging.New(400, 400, color.NRGBA{255, 255, 255, 0})
+			dst = imaging.Paste(dst, src, image.Pt(0, 0))
+			imaging.Save(dst, dir+"/static/thumb/"+v)
+			photos = append(photos, os.Getenv("IMGADDRESSTHUMB")+v)
 		}
-		src = imaging.Resize(src, 800, 800, imaging.NearestNeighbor)
-		dst := imaging.New(400, 400, color.NRGBA{255, 255, 255, 0})
-		dst = imaging.Paste(dst, src, image.Pt(0, 0))
-		imaging.Save(dst, dir+"/static/thumb/"+v)
-		photos = append(photos, os.Getenv("IMGADDRESSTHUMB")+v)
+		return
+
 	}
-	return
+
 }
 
 //判断用户是否点赞 根据用户id是否在这个日记中

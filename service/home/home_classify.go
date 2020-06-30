@@ -15,10 +15,7 @@ func (classify *HomeClassify) GetClassify() serializer.Response {
 	models.DB.Preload("SubTopics").Limit(10).Find(&classifys)
 
 	return serializer.Response{
-		Code:  0,
 		Data:  serializer.BuildClassifys(classifys),
-		Msg:   "",
-		Error: "",
 	}
 
 }

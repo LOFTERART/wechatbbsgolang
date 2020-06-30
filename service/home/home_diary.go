@@ -3,7 +3,6 @@ package home
 import (
 	"QUZHIYOU/models"
 	"QUZHIYOU/serializer"
-	"fmt"
 )
 
 type ListDiaryService struct {
@@ -18,8 +17,7 @@ type ListDiaryService struct {
 func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 
 	var diarys []*models.Diary
-
-	total := 0
+	
 
 	if service.Size == 0 {
 		service.Size = 10
@@ -34,15 +32,6 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 	if service.ClassifyId > 0 {
 
 		if service.CommunityId == 99999 {
-			fmt.Println("00000000")
-			if err := models.DB.Where("classify_id=? ", service.ClassifyId).
-				Model(models.Diary{}).Count(&total).Error; err != nil {
-				return serializer.Response{
-					Code:  50000,
-					Msg:   "数据库连接错误",
-					Error: err.Error(),
-				}
-			}
 
 			if err := models.DB.
 				Preload("UserInfo").
@@ -57,14 +46,7 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 				}
 			}
 		} else {
-			if err := models.DB.Where("classify_id=? AND community_id=?", service.ClassifyId, service.CommunityId).
-				Model(models.Diary{}).Count(&total).Error; err != nil {
-				return serializer.Response{
-					Code:  50000,
-					Msg:   "数据库连接错误",
-					Error: err.Error(),
-				}
-			}
+
 
 			if err := models.DB.
 				Preload("UserInfo").
@@ -81,14 +63,7 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 		}
 
 	} else if service.SubTopicId > 0 {
-		if err := models.DB.Where(" community_id=? AND sub_topic_id=?", service.CommunityId, service.SubTopicId).
-			Model(models.Diary{}).Count(&total).Error; err != nil {
-			return serializer.Response{
-				Code:  50000,
-				Msg:   "数据库连接错误",
-				Error: err.Error(),
-			}
-		}
+
 
 		if err := models.DB.
 			Preload("UserInfo").
@@ -104,15 +79,7 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 		}
 
 	} else if service.UserId > 0 {
-		if err := models.DB.Where(" user_id=? ", service.UserId).Model(models.Diary{}).
-			Count(&total).Error; err != nil {
-			return serializer.Response{
-				Code:  50000,
-				Msg:   "数据库连接错误",
-				Error: err.Error(),
-			}
-		}
-		//Where(" user_id=? AND community_id=?", service.UserId, service.CommunityId).
+
 		if err := models.DB.
 			Where(" user_id=?", service.UserId).
 			Preload("UserInfo").
@@ -130,15 +97,6 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 
 		if service.CommunityId == 99999 {
 
-			if err := models.DB.Model(models.Diary{}).
-				Count(&total).Error; err != nil {
-				return serializer.Response{
-					Code:  50000,
-					Msg:   "数据库连接错误",
-					Error: err.Error(),
-				}
-			}
-
 			if err := models.DB.
 				Preload("UserInfo").
 				Preload("Comment").
@@ -152,14 +110,6 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 				}
 			}
 		} else {
-			if err := models.DB.Where("community_id=?", service.CommunityId).Model(models.Diary{}).
-				Count(&total).Error; err != nil {
-				return serializer.Response{
-					Code:  50000,
-					Msg:   "数据库连接错误",
-					Error: err.Error(),
-				}
-			}
 
 			if err := models.DB.
 				Preload("UserInfo").
@@ -178,6 +128,11 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 
 	}
 
-	return serializer.BuildListResponse(serializer.BuildDiarys(diarys, userId), uint(total))
+	//return serializer.BuildListResponse(serializer.BuildDiarys(diarys, userId), uint(total))
+
+	return serializer.Response{
+		Code:  0,
+		Data:  serializer.BuildDiarys(diarys, userId),
+	}
 
 }

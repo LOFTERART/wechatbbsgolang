@@ -76,10 +76,10 @@ func BuildUser(user *models.User) *User {
 
 }
 
-func BuildUserFormat(item *models.User) *User {
+func BuildUserFormat(item *models.User,id string) *User {
 	return &User{
 		Id:                   item.ID,
-		IsLike:               item.UserIsLike("1"),
+		IsLike:               item.UserIsLike(id),
 		NickName:             item.NickName,
 		AvatarUrl:            item.AvatarUrl,
 		Province:             item.Province,
@@ -96,10 +96,10 @@ func BuildUserFormat(item *models.User) *User {
 	}
 }
 
-func BuildUserSFormat(item []*models.User) (items []*User) {
+func BuildUserSFormat(item []*models.User,id string) (items []*User) {
 
 	for _, v := range item {
-		items = append(items, BuildUserFormat(v))
+		items = append(items, BuildUserFormat(v,id))
 	}
 	return
 }

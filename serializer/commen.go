@@ -27,7 +27,7 @@ func BuildCommentSerializer(item models.Comment, userID string) *Comment {
 		StepNum:  item.StepNum,
 		DiaryID:  item.DiaryID,
 		UserID:   item.UserID,
-		User:     BuildUserFormat(&(item.User)),
+		User:     BuildUserFormat(&(item.User),userID),
 		CreateAt: item.ForMatTime(),
 		Like:     item.Like,
 		IsLike:   item.UserIsLike(userID), //判断当前用户是否对评论点赞

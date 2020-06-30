@@ -57,7 +57,7 @@ func BuildDiary(item models.Diary, userId string) Diary {
 		UserLikes:            item.UserLikeId,
 		UserId:               item.UserInfo.ID,
 		SubTopicInfo:         BuildSubTopic(item.SubTopicInfo), //子主题info信息
-		UserInfo:             BuildUserFormat(item.UserInfo),
+		UserInfo:             BuildUserFormat(item.UserInfo,userId),
 		CommentNum:           uint(len(item.Comment)),
 	}
 

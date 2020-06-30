@@ -80,7 +80,6 @@ func (service *ListDiaryService) GetDiarys(userId string) serializer.Response {
 				Limit(service.Size).Offset(start).Find(&diarys)
 
 		} else {
-
 			    models.DB.
 				Preload("UserInfo").
 				Preload("Comment").

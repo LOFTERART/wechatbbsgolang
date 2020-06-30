@@ -14,7 +14,7 @@ type Comment struct {
 	UserID uint `json:"user_id,omitempty"`
 	User *User `json:"user,omitempty"`
 	CreateAt int64 `json:"create_at,omitempty"`
-	Like uint `json:"like,omitempty"`  //点赞数
+	Like uint `json:"like"`  //点赞数
 	IsLike   bool    `json:"is_like,omitempty"` //计算得出是否点赞
 }
 

@@ -22,7 +22,9 @@ type User struct {
 	Authentication       bool   //认证
 	AuthenticationName   string //认证的称号 教师 医生
 	IsShowAuthentication bool   //是否显示认证
-	Follow string   //关注人列表
+	Follow string   //我都被谁给关注了
+	MyFollow string  //我都关注了谁
+
 
 	Job string //职务信息
 

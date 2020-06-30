@@ -46,21 +46,31 @@ func (item *FollowUsers) Follow(my []string,you []string) serializer.Response {
 
 	if item.Type {
 
-		//关注人的列表信息更新 都谁关注他了 把关注人的ID存到他的列表
 		for k, v := range MyFollow {
-			if my[0] == v {
+			if you[0] == v {
 				MyFollow = append(MyFollow[:k], MyFollow[k+1:]...)
 			}
 		}
 
-		str := strings.Join(MyFollow, ",")
+		youUser := strings.Join(MyFollow, ",")
 
-		MyUserInfo.Follow = str
+		models.DB.Model(&MyUserInfo).Updates(map[string]interface{}{"my_follow": youUser})
 
-		models.DB.Model(&MyUserInfo).Updates(map[string]interface{}{"my_follow": MyUserInfo.Follow})
+
+
+		for k, v := range YouFollow {
+			if my[0] == v {
+				YouFollow = append(YouFollow[:k], YouFollow[k+1:]...)
+			}
+		}
+
+		myUser := strings.Join(MyFollow, ",")
+
+		models.DB.Model(&YouUserInfo).Updates(map[string]interface{}{"follow": myUser})
 
 	} else {
 
+		//我的myfolow是你的id
 		for _, v := range MyFollow {
 			if you[0] != v {
 				you = append(you, v)
@@ -70,7 +80,7 @@ func (item *FollowUsers) Follow(my []string,you []string) serializer.Response {
 		models.DB.Model(&MyUserInfo).Updates(map[string]interface{}{ "my_follow": youUser})
 
 
-
+		//你的folow是我的id
 		for _, v := range YouFollow {
 			if my[0] != v {
 				my = append(my, v)

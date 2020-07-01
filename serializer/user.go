@@ -17,7 +17,8 @@ type User struct {
 	Country   string `json:"country,omitempty"`
 	Gender    int    `json:"gender,omitempty"`
 
-	IsLike               bool      `json:"isFollow"`
+	IsFollow              bool      `json:"isFollow"`
+	FollowDes string `json:"followDes"`
 
 	Auth                 string `json:"auth,omitempty"`                   //职业认证
 	Specialist           bool   `json:"specialist,omitempty"`             //是否认证
@@ -77,9 +78,17 @@ func BuildUser(user *models.User) *User {
 }
 
 func BuildUserFormat(item *models.User,id string) *User {
+	var name string
+	if item.UserIsLike(id){
+		name="已关注"
+	}else {
+		name="关注"
+	}
+
 	return &User{
 		Id:                   item.ID,
-		IsLike:               item.UserIsLike(id),
+		IsFollow:               item.UserIsLike(id),
+		FollowDes:               name,
 		NickName:             item.NickName,
 		AvatarUrl:            item.AvatarUrl,
 		Province:             item.Province,
